@@ -1,82 +1,57 @@
-model/
-Entidades e lógica de domínio:
-
-Aluno.java
-
-Disciplina.java (abstrata)
-
-DisciplinaObrigatoria.java, DisciplinaEletiva.java, DisciplinaOptativa.java
-
-Turma.java
-
-Historico.java (se desejar separar)
-
-Planejamento.java (lista de turmas desejadas)
-
-controller/
-Coordenador da simulação:
-
-SistemaAcademico.java ou ServicoMatricula.java
-
-Lê dados de entrada (mockados ou fixos)
-
-Aplica regras de negócio
-
-Coordena validações e atualizações no modelo
-
-view/
-Responsável por exibir os resultados:
-
-RelatorioSimulacao.java
-
-Mostra disciplinas aceitas/rejeitadas
-
-Mostra motivos de rejeição (exceções)
-
-Pode gerar saída em texto, console, JSON, etc.
-
-exception/
-Hierarquia de exceções:
-
-MatriculaException.java (base)
-
-ValidacaoMatriculaException.java
-
-PreRequisitoNaoCumpridoException.java
-
-CoRequisitoNaoAtendidoException.java
-
-CargaHorariaExcedidaException.java
-
-ConflitoDeHorarioException.java
-
-GerenciamentoVagasException.java
-
-TurmaCheiaException.java
-
-validator/
-Validadores de pré-requisitos (interface + implementações):
-
-ValidadorPreRequisito.java (interface)
-
-ValidadorSimples.java
-
-ValidadorLogicoAND.java
-
-ValidadorLogicoOR.java
-
-ValidadorCreditosMinimos.java
-
-test/
-Testes JUnit separados por camada:
-
-Testes de unidade para:
-
-Matrícula com sucesso
-
-Todas as exceções
-
-Lógica de precedência
-
-Geração de relatório
-
+academico-planner/
+│
+├── pom.xml                      # Configuração do projeto Maven (dependências, JDK 21, etc.)
+├── README.md                    # Este arquivo com informações do projeto
+└── src/
+    ├── main/
+    │   ├── java/
+    │   │   └── br/
+    │   │       └── ufjf/
+    │   │           └── academico/
+    │   │               ├── model/           # MODELO: entidades e regras de negócio
+    │   │               │   ├── Aluno.java
+    │   │               │   ├── Disciplina.java
+    │   │               │   ├── DisciplinaObrigatoria.java
+    │   │               │   ├── DisciplinaEletiva.java
+    │   │               │   ├── DisciplinaOptativa.java
+    │   │               │   ├── Turma.java
+    │   │               │   └── ...
+    │   │               │
+    │   │               ├── controller/      # CONTROLADOR: coordenação da matrícula
+    │   │               │   └── SistemaAcademico.java
+    │   │               │
+    │   │               ├── view/            # VISUALIZAÇÃO: geração de relatórios (sem interface gráfica)
+    │   │               │   └── RelatorioSimulacao.java
+    │   │               │
+    │   │               ├── validator/       # VALIDADORES: regras de pré-requisito/co-requisito
+    │   │               │   ├── ValidadorPreRequisito.java
+    │   │               │   ├── ValidadorSimples.java
+    │   │               │   ├── ValidadorLogicoAND.java
+    │   │               │   ├── ValidadorLogicoOR.java
+    │   │               │   └── ValidadorCreditosMinimos.java
+    │   │               │
+    │   │               └── exception/       # EXCEÇÕES: falhas e validações específicas
+    │   │                   ├── MatriculaException.java
+    │   │                   ├── ValidacaoMatriculaException.java
+    │   │                   ├── PreRequisitoNaoCumpridoException.java
+    │   │                   ├── CoRequisitoNaoAtendidoException.java
+    │   │                   ├── CargaHorariaExcedidaException.java
+    │   │                   ├── ConflitoDeHorarioException.java
+    │   │                   ├── GerenciamentoVagasException.java
+    │   │                   └── TurmaCheiaException.java
+    │   │
+    │   └── resources/                       # (Opcional) Arquivos de configuração ou dados de entrada simulada
+    │       ├── alunos.json
+    │       ├── disciplinas.csv
+    │       └── ...
+    │
+    └── test/
+        └── java/
+            └── br/
+                └── ufjf/
+                    └── academico/
+                        ├── model/          # Testes de entidades e lógica de negócios
+                        ├── controller/     # Testes do sistema de matrícula
+                        ├── validator/      # Testes dos validadores de pré-requisito
+                        ├── exception/      # Testes das exceções
+                        └── ...
