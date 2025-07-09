@@ -28,6 +28,14 @@ academico-planner/
     │   │               │
     │   │               ├── view/                            # VIEW: geração de relatórios
     │   │               │   └── RelatorioSimulacao.java
+    │   │               │       ├── Login
+    │   │               │       ├── Dashboard
+    │   │               │       ├── Tabela de Alunos
+    │   │               │       ├── CRUD - Modais
+    │   │               │       ├── Tabela de Disciplinas
+    │   │               │       ├── CRUD - Modais
+    │   │               │       ├── 
+    │   │               │       └── Planejamento.java
     │   │               │
     │   │               ├── validator/                       # VALIDADORES: pré/co-requisitos
     │   │               │   ├── ValidadorPreRequisito.java   # (interface)
