@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Representa uma oferta específica de uma disciplina.
- * Contém informações como ID da turma, capacidade máxima, 
- * número atual de alunos matriculados e o horário fixo da aula.
+ * Representa uma oferta especifica de uma disciplina.
+ * Contem informacoes como ID da turma, capacidade maxima, 
+ * numero atual de alunos matriculados e o horario fixo da aula.
  */
 public class Turma {
     private String id; // ID da turma
     private Disciplina disciplina;
     private String professor;
-    private int capacidadeMaxima; // capacidade máxima de alunos
-    private int alunosMatriculados; // número atual de matriculados
-    private String horario; // horário fixo da aula (ex: segunda 08h–10h)
-    private List<String> matriculasAlunos; // matrículas dos alunos
+    private int capacidadeMaxima; // capacidade maxima de alunos
+    private int alunosMatriculados; // numero atual de matriculados
+    private String horario; // horario fixo da aula (ex: segunda 08h–10h)
+    private List<String> matriculasAlunos; // matriculas dos alunos
     
     public Turma() {
         this.matriculasAlunos = new ArrayList<>();
@@ -50,7 +50,7 @@ public class Turma {
     }
     
     /**
-     * Adiciona um aluno à turma
+     * Adiciona um aluno a turma
      */
     public void adicionarAluno(Aluno aluno) {
         if (!matriculasAlunos.contains(aluno.getMatricula())) {
@@ -69,14 +69,14 @@ public class Turma {
     }
     
     /**
-     * Verifica se há vagas disponíveis
+     * Verifica se ha vagas disponiveis
      */
     public boolean temVagasDisponiveis() {
         return alunosMatriculados < capacidadeMaxima;
     }
     
     /**
-     * Retorna o número de vagas restantes
+     * Retorna o numero de vagas restantes
      */
     public int getVagasRestantes() {
         return capacidadeMaxima - alunosMatriculados;

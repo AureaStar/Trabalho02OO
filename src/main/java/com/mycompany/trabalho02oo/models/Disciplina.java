@@ -6,12 +6,12 @@ import java.util.List;
 
 /**
  * Classe abstrata que define as propriedades e comportamentos comuns a todas as disciplinas,
- * como código, nome, carga horária semanal, e listas de validadores de pré-requisitos e co-requisitos.
+ * como codigo, nome, carga horaria semanal, e listas de validadores de pre-requisitos e co-requisitos.
  */
 public abstract class Disciplina {
     private String codigo;
     private String nome;
-    private int cargaHoraria; // carga horária semanal
+    private int cargaHoraria; // carga horaria semanal
     private List<ValidadorPreRequisito> validadoresPreRequisito;
     private List<Disciplina> coRequisitos; // disciplinas que devem ser cursadas no mesmo semestre
     
@@ -23,7 +23,7 @@ public abstract class Disciplina {
         this.coRequisitos = new ArrayList<>();
     }
     
-    // Método abstrato que define a prioridade para resolução de conflitos de horário
+    // Metodo abstrato que define a prioridade para resolucao de conflitos de horario
     public abstract int getPrioridade();
     
     public void adicionarValidadorPreRequisito(ValidadorPreRequisito validador) {

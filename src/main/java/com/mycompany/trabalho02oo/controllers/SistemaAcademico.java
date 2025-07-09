@@ -10,11 +10,11 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * Orquestrador central da simulação. Responsável por:
+ * Orquestrador central da simulacao. Responsavel por:
  * - Carregar dados de disciplinas, turmas e alunos
- * - Gerenciar o processo de planejamento de matrícula para os alunos
- * - Aplicar todas as regras de validação (pré-requisitos, co-requisitos, carga horária, vagas, conflitos)
- * - Atualizar o histórico do aluno e gerar os relatórios da simulação
+ * - Gerenciar o processo de planejamento de matricula para os alunos
+ * - Aplicar todas as regras de validacao (pre-requisitos, co-requisitos, carga horaria, vagas, conflitos)
+ * - Atualizar o historico do aluno e gerar os relatorios da simulacao
  */
 public class SistemaAcademico {
     private Map<String, Aluno> alunos;
@@ -67,19 +67,19 @@ public class SistemaAcademico {
     }
     
     /**
-     * Processa a simulação de matrícula para um aluno
+     * Processa a simulacao de matricula para um aluno
      */
     public RelatorioMatricula simularMatricula(String matriculaAluno) throws MatriculaException {
         Aluno aluno = buscarAluno(matriculaAluno);
         if (aluno == null) {
-            throw new ValidacaoMatriculaException("Aluno não encontrado: " + matriculaAluno);
+            throw new ValidacaoMatriculaException("Aluno nao encontrado: " + matriculaAluno);
         }
         
         RelatorioMatricula relatorio = new RelatorioMatricula(matriculaAluno);
         List<Turma> turmasDesejadas = new ArrayList<>(aluno.getPlanejamentoFuturo());
         List<Turma> turmasAceitas = new ArrayList<>();
         
-        // Ordena turmas por prioridade (obrigatórias > eletivas > optativas)
+        // Ordena turmas por prioridade (obrigatorias > eletivas > optativas)
         turmasDesejadas.sort((t1, t2) -> 
             Integer.compare(t1.getDisciplina().getPrioridade(), t2.getDisciplina().getPrioridade()));
         
@@ -87,14 +87,14 @@ public class SistemaAcademico {
         
         for (Turma turma : turmasDesejadas) {
             try {
-                // Verifica se não excede carga horária máxima
+                // Verifica se nao excede carga horaria maxima
                 if (cargaHorariaAtual + turma.getDisciplina().getCargaHoraria() > aluno.getCargaHorariaMaxima()) {
                     relatorio.adicionarItem(turma, RelatorioMatricula.StatusMatricula.REJEITADA, 
-                        "Carga horária máxima excedida");
+                        "Carga horaria maxima excedida");
                     continue;
                 }
                 
-                // Valida pré-requisitos
+                // Valida pre-requisitos
                 validarPreRequisitos(aluno, turma.getDisciplina());
                 
                 // Valida co-requisitos
@@ -105,16 +105,16 @@ public class SistemaAcademico {
                     throw new TurmaCheiaException("Turma " + turma.getId() + " está cheia");
                 }
                 
-                // Verifica conflitos de horário
+                // Verifica conflitos de horario
                 validarConflitoHorario(turma, turmasAceitas);
                 
-                // Se chegou até aqui, a matrícula é válida
+                // Se chegou ate aqui, a matricula e valida
                 turmasAceitas.add(turma);
                 cargaHorariaAtual += turma.getDisciplina().getCargaHoraria();
                 turma.adicionarMatricula(matriculaAluno);
                 
                 relatorio.adicionarItem(turma, RelatorioMatricula.StatusMatricula.ACEITA, 
-                    "Matrícula realizada com sucesso");
+                    "Matricula realizada com sucesso");
                 
             } catch (MatriculaException e) {
                 relatorio.adicionarItem(turma, RelatorioMatricula.StatusMatricula.REJEITADA, 
@@ -129,25 +129,25 @@ public class SistemaAcademico {
     public void matricularAluno(String matriculaAluno, String codigoTurma) throws MatriculaException {
         Aluno aluno = buscarAluno(matriculaAluno);
         if (aluno == null) {
-            throw new ValidacaoMatriculaException("Aluno não encontrado: " + matriculaAluno);
+            throw new ValidacaoMatriculaException("Aluno nao encontrado: " + matriculaAluno);
         }
         
         Turma turma = buscarTurma(codigoTurma);
         if (turma == null) {
-            throw new ValidacaoMatriculaException("Turma não encontrada: " + codigoTurma);
+            throw new ValidacaoMatriculaException("Turma nao encontrada: " + codigoTurma);
         }
         
         // Verificar se a turma tem vagas
         if (turma.getVagasOcupadas() >= turma.getVagas()) {
-            throw new TurmaCheiaException("Turma " + codigoTurma + " está cheia");
+            throw new TurmaCheiaException("Turma " + codigoTurma + " esta cheia");
         }
         
-        // Verificar carga horária
+        // Verificar carga horaria
         if (!aluno.podeAdicionarCargaHoraria(turma.getDisciplina().getCargaHoraria())) {
-            throw new CargaHorariaExcedidaException("Carga horária máxima excedida");
+            throw new CargaHorariaExcedidaException("Carga horaria maxima excedida");
         }
         
-        // Verificar pré-requisitos
+        // Verificar pre-requisitos
         for (ValidadorPreRequisito validador : turma.getDisciplina().getValidadoresPreRequisito()) {
             if (!validador.validar(aluno, turma.getDisciplina())) {
                 throw new PreRequisitoNaoCumpridoException(validador.getMensagemErro());
@@ -159,14 +159,14 @@ public class SistemaAcademico {
             boolean temCoRequisito = aluno.getPlanejamentoFuturo().stream()
                     .anyMatch(t -> t.getDisciplina().equals(coRequisito));
             if (!temCoRequisito) {
-                throw new CoRequisitoNaoAtendidoException("Co-requisito não atendido: " + coRequisito.getNome());
+                throw new CoRequisitoNaoAtendidoException("Co-requisito nao atendido: " + coRequisito.getNome());
             }
         }
         
-        // Verificar conflitos de horário
+        // Verificar conflitos de horario
         verificarConflitoHorario(aluno, turma);
         
-        // Realizar matrícula
+        // Realizar matricula
         aluno.adicionarTurmaPlanejamento(turma);
         turma.adicionarAluno(aluno);
     }
@@ -190,7 +190,7 @@ public class SistemaAcademico {
             for (Disciplina coRequisito : coRequisitos) {
                 if (!disciplinasDesejadas.contains(coRequisito)) {
                     throw new CoRequisitoNaoAtendidoException(
-                        "Co-requisito não atendido: " + coRequisito.getCodigo());
+                        "Co-requisito nao atendido: " + coRequisito.getCodigo());
                 }
             }
         }
@@ -200,17 +200,17 @@ public class SistemaAcademico {
             throws ConflitoDeHorarioException {
         for (Turma turmaExistente : turmasAceitas) {
             if (novaTurma.getHorario().equals(turmaExistente.getHorario())) {
-                // Verifica precedência
+                // Verifica precedencia
                 int prioridadeNova = novaTurma.getDisciplina().getPrioridade();
                 int prioridadeExistente = turmaExistente.getDisciplina().getPrioridade();
                 
                 if (prioridadeNova == prioridadeExistente) {
                     throw new ConflitoDeHorarioException(
-                        "Conflito de horário entre disciplinas de mesma precedência");
+                        "Conflito de horario entre disciplinas de mesma precedencia");
                 } else if (prioridadeNova > prioridadeExistente) {
                     // Nova turma tem menor prioridade, rejeita
                     throw new ConflitoDeHorarioException(
-                        "Conflito de horário: disciplina com menor precedência rejeitada");
+                        "Conflito de horario: disciplina com menor precedencia rejeitada");
                 }
                 // Se nova turma tem maior prioridade, remove a existente
                 turmasAceitas.remove(turmaExistente);
@@ -222,16 +222,16 @@ public class SistemaAcademico {
     private void verificarConflitoHorario(Aluno aluno, Turma novaTurma) throws ConflitoDeHorarioException {
         for (Turma turmaExistente : aluno.getPlanejamentoFuturo()) {
             if (turmasConflitam(turmaExistente, novaTurma)) {
-                // Verificar precedência
+                // Verificar precedencia
                 int prioridadeExistente = turmaExistente.getDisciplina().getPrioridade();
                 int prioridadeNova = novaTurma.getDisciplina().getPrioridade();
                 
                 if (prioridadeExistente == prioridadeNova) {
-                    // Mesmo nível de prioridade - rejeitar
-                    throw new ConflitoDeHorarioException("Conflito de horário entre disciplinas de mesma precedência");
+                    // Mesmo nivel de prioridade - rejeitar
+                    throw new ConflitoDeHorarioException("Conflito de horario entre disciplinas de mesma precedencia");
                 } else if (prioridadeExistente > prioridadeNova) {
                     // Disciplina existente tem maior prioridade - rejeitar nova
-                    throw new ConflitoDeHorarioException("Conflito de horário - disciplina existente tem maior precedência");
+                    throw new ConflitoDeHorarioException("Conflito de horario - disciplina existente tem maior precedencia");
                 } else {
                     // Nova disciplina tem maior prioridade - remover existente
                     aluno.removerTurmaPlanejamento(turmaExistente);
@@ -242,11 +242,11 @@ public class SistemaAcademico {
     }
     
     private boolean turmasConflitam(Turma turma1, Turma turma2) {
-        // Implementação simplificada - assumindo que horários conflitam se contêm o mesmo dia
+        // Implementacao simplificada - assumindo que horarios conflitam se contem o mesmo dia
         String horario1 = turma1.getHorario().toLowerCase();
         String horario2 = turma2.getHorario().toLowerCase();
         
-        String[] dias = {"segunda", "terça", "quarta", "quinta", "sexta", "sábado"};
+        String[] dias = {"segunda", "terca", "quarta", "quinta", "sexta", "sabado"};
         
         for (String dia : dias) {
             if (horario1.contains(dia) && horario2.contains(dia)) {

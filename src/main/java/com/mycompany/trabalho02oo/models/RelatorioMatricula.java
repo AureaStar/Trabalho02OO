@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Representa o resultado da simulação de matrícula, 
+ * Representa o resultado da simulacao de matricula, 
  * incluindo disciplinas aceitas, rejeitadas e seus motivos.
  */
 public class RelatorioMatricula {

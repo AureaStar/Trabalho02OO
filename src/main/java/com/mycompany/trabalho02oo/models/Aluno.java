@@ -7,15 +7,15 @@ import java.util.Map;
 
 /**
  * Classe que representa um estudante no sistema.
- * Armazena o nome, matrícula, as disciplinas cursadas com suas notas,
- * a quantidade de horas máxima que ele pode cursar e o planejamento futuro.
+ * Armazena o nome, matricula, as disciplinas cursadas com suas notas,
+ * a quantidade de horas maxima que ele pode cursar e o planejamento futuro.
  */
 public class Aluno {
     private String nome;
     private String matricula; // Formato AAAACCMMM
     private Map<Disciplina, Double> disciplinasCursadas; // Disciplina -> Nota
     private int cargaHorariaMaxima;
-    private List<Turma> planejamentoFuturo; // Turmas desejadas para o próximo semestre
+    private List<Turma> planejamentoFuturo; // Turmas desejadas para o proximo semestre
     
     public Aluno(String nome, String matricula, int cargaHorariaMaxima) {
         this.nome = nome;
@@ -33,7 +33,7 @@ public class Aluno {
     }
     
     /**
-     * Verifica se o aluno cumpriu o pré-requisito de uma disciplina
+     * Verifica se o aluno cumpriu o pre-requisito de uma disciplina
      * (nota >= 60)
      */
     public boolean cumpriuPreRequisito(Disciplina disciplina) {
@@ -58,7 +58,7 @@ public class Aluno {
     }
     
     /**
-     * Calcula a carga horária total das disciplinas cursadas aprovadas
+     * Calcula a carga horaria total das disciplinas cursadas aprovadas
      */
     public int calcularCargaHorariaCursada() {
         return disciplinasCursadas.entrySet().stream()
@@ -68,7 +68,7 @@ public class Aluno {
     }
     
     /**
-     * Calcula a carga horária do planejamento atual
+     * Calcula a carga horaria do planejamento atual
      */
     public int calcularCargaHorariaPlanejamento() {
         return planejamentoFuturo.stream()
@@ -90,7 +90,7 @@ public class Aluno {
     }
     
     /**
-     * Verifica se o aluno pode se matricular considerando a carga horária máxima
+     * Verifica se o aluno pode se matricular considerando a carga horaria maxima
      */
     public boolean podeAdicionarCargaHoraria(int cargaHoraria) {
         return calcularCargaHorariaPlanejamento() + cargaHoraria <= cargaHorariaMaxima;

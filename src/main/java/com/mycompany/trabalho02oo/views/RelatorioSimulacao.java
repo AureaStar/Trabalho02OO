@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Classe responsável por gerar relatórios completos e detalhados 
- * da simulação de matrícula, oferecendo transparência sobre as decisões tomadas pelo modelo.
+ * Classe responsavel por gerar relatorios completos e detalhados 
+ * da simulacao de matricula, oferecendo transparencia sobre as decisoes tomadas pelo modelo.
  */
 public class RelatorioSimulacao {
     
@@ -15,41 +15,41 @@ public class RelatorioSimulacao {
     }
     
     /**
-     * Exibe relatório completo do aluno com todas as informações acadêmicas
+     * Exibe relatorio completo do aluno com todas as informacoes academicas
      */
     public void exibirRelatorioAluno(Aluno aluno) {
         System.out.println("\n" + "=".repeat(60));
-        System.out.println("RELATÓRIO ACADÊMICO COMPLETO");
+        System.out.println("RELATORIO ACADEMICO COMPLETO");
         System.out.println("=".repeat(60));
         
-        // Informações básicas
-        System.out.println("📋 DADOS PESSOAIS:");
+        // Informacoes basicas
+        System.out.println("[] DADOS PESSOAIS:");
         System.out.println("   Nome: " + aluno.getNome());
-        System.out.println("   Matrícula: " + aluno.getMatricula());
-        System.out.println("   Carga Horária Máxima: " + aluno.getCargaHorariaMaxima() + "h");
+        System.out.println("   Matricula: " + aluno.getMatricula());
+        System.out.println("   Carga Horaria Maxima: " + aluno.getCargaHorariaMaxima() + "h");
         
-        // Histórico acadêmico
+        // Historico academico
         exibirHistoricoAcademico(aluno);
         
         // Planejamento atual
         exibirPlanejamentoAtual(aluno);
         
-        // Estatísticas
+        // Estatisticas
         exibirEstatisticas(aluno);
         
         System.out.println("=".repeat(60));
     }
     
     /**
-     * Exibe o histórico de disciplinas cursadas
+     * Exibe o historico de disciplinas cursadas
      */
     private void exibirHistoricoAcademico(Aluno aluno) {
-        System.out.println("\n📚 HISTÓRICO ACADÊMICO:");
+        System.out.println("\n[] HISTORICO ACADEMICO:");
         
         Map<Disciplina, Double> disciplinasCursadas = aluno.getDisciplinasCursadas();
         
         if (disciplinasCursadas.isEmpty()) {
-            System.out.println("   ⚠️  Nenhuma disciplina cursada ainda.");
+            System.out.println("   !  Nenhuma disciplina cursada ainda.");
             return;
         }
         
@@ -57,10 +57,10 @@ public class RelatorioSimulacao {
         for (Map.Entry<Disciplina, Double> entry : disciplinasCursadas.entrySet()) {
             Disciplina disciplina = entry.getKey();
             Double nota = entry.getValue();
-            String status = nota >= 60.0 ? "✅ APROVADO" : "❌ REPROVADO";
+            String status = nota >= 60.0 ? "APROVADO" : "REPROVADO";
             String tipo = getTipoDisciplina(disciplina);
             
-            System.out.printf("   • %s (%s) - %s - Nota: %.1f - %s%n",
+            System.out.printf("     %s (%s) - %s - Nota: %.1f - %s%n",
                     disciplina.getNome(),
                     disciplina.getCodigo(),
                     tipo,
@@ -73,12 +73,12 @@ public class RelatorioSimulacao {
      * Exibe o planejamento atual do aluno
      */
     private void exibirPlanejamentoAtual(Aluno aluno) {
-        System.out.println("\n🎯 PLANEJAMENTO ATUAL:");
+        System.out.println("\n[] PLANEJAMENTO ATUAL:");
         
         List<Turma> planejamento = aluno.getPlanejamentoFuturo();
         
         if (planejamento.isEmpty()) {
-            System.out.println("   ⚠️  Nenhuma turma no planejamento.");
+            System.out.println("   !  Nenhuma turma no planejamento.");
             return;
         }
         
@@ -90,11 +90,11 @@ public class RelatorioSimulacao {
             String tipo = getTipoDisciplina(disciplina);
             cargaTotal += disciplina.getCargaHoraria();
             
-            System.out.printf("   • %s (%s) - %s%n",
+            System.out.printf("     %s (%s) - %s%n",
                     disciplina.getNome(),
                     turma.getId(),
                     tipo);
-            System.out.printf("     Horário: %s | Carga: %dh | Professor: %s%n",
+            System.out.printf("     Horario: %s | Carga: %dh | Professor: %s%n",
                     turma.getHorario(),
                     disciplina.getCargaHoraria(),
                     turma.getProfessor());
@@ -103,27 +103,27 @@ public class RelatorioSimulacao {
                     turma.getVagas());
         }
         
-        System.out.printf("\n   📊 Carga Horária Total do Planejamento: %d/%dh%n",
+        System.out.printf("\n   [] Carga Horaria Total do Planejamento: %d/%dh%n",
                 cargaTotal, aluno.getCargaHorariaMaxima());
     }
     
     /**
-     * Exibe estatísticas acadêmicas do aluno
+     * Exibe estatisticas academicas do aluno
      */
     private void exibirEstatisticas(Aluno aluno) {
-        System.out.println("\n📈 ESTATÍSTICAS:");
+        System.out.println("\n[] ESTATISTICAS:");
         
-        // Carga horária cursada (apenas aprovados)
+        // Carga horaria cursada (apenas aprovados)
         int cargaCursada = aluno.calcularCargaHorariaCursada();
-        System.out.println("   Carga Horária Cursada (Aprovado): " + cargaCursada + "h");
+        System.out.println("   Carga Horaria Cursada (Aprovado): " + cargaCursada + "h");
         
-        // Carga horária planejada
+        // Carga horaria planejada
         int cargaPlanejada = aluno.calcularCargaHorariaPlanejamento();
-        System.out.println("   Carga Horária Planejada: " + cargaPlanejada + "h");
+        System.out.println("   Carga Horaria Planejada: " + cargaPlanejada + "h");
         
-        // Utilização da carga máxima
+        // Utilizacao da carga maxima
         double utilizacao = (double) cargaPlanejada / aluno.getCargaHorariaMaxima() * 100;
-        System.out.printf("   Utilização da Carga Máxima: %.1f%%%n", utilizacao);
+        System.out.printf("   Utilizacao da Carga Maxima: %.1f%%%n", utilizacao);
         
         // Disciplinas aprovadas
         List<Disciplina> aprovadas = aluno.getDisciplinasAprovadas();
@@ -135,16 +135,16 @@ public class RelatorioSimulacao {
         
         if (totalCursadas > 0) {
             double taxaAprovacao = (double) aprovadas.size() / totalCursadas * 100;
-            System.out.printf("   Taxa de Aprovação: %.1f%%%n", taxaAprovacao);
+            System.out.printf("   Taxa de Aprovacao: %.1f%%%n", taxaAprovacao);
         }
     }
     
     /**
-     * Exibe relatório de disciplinas disponíveis
+     * Exibe relatorio de disciplinas disponiveis
      */
     public void exibirRelatorioDisciplinas(List<Disciplina> disciplinas) {
         System.out.println("\n" + "=".repeat(60));
-        System.out.println("RELATÓRIO DE DISCIPLINAS DISPONÍVEIS");
+        System.out.println("RELATORIO DE DISCIPLINAS DISPONIVEIS");
         System.out.println("=".repeat(60));
         
         if (disciplinas.isEmpty()) {
@@ -157,7 +157,7 @@ public class RelatorioSimulacao {
                 .filter(d -> d instanceof DisciplinaObrigatoria)
                 .forEach(d -> {
                     if (disciplinas.stream().filter(disc -> disc instanceof DisciplinaObrigatoria).findFirst().equals(d)) {
-                        System.out.println("\n📘 DISCIPLINAS OBRIGATÓRIAS:");
+                        System.out.println("\n[] DISCIPLINAS OBRIGATORIAS:");
                     }
                     exibirDetalheDisciplina(d);
                 });
@@ -166,7 +166,7 @@ public class RelatorioSimulacao {
                 .filter(d -> d instanceof DisciplinaEletiva)
                 .forEach(d -> {
                     if (disciplinas.stream().filter(disc -> disc instanceof DisciplinaEletiva).findFirst().equals(d)) {
-                        System.out.println("\n📗 DISCIPLINAS ELETIVAS:");
+                        System.out.println("\n  DISCIPLINAS ELETIVAS:");
                     }
                     exibirDetalheDisciplina(d);
                 });
@@ -175,7 +175,7 @@ public class RelatorioSimulacao {
                 .filter(d -> d instanceof DisciplinaOptativa)
                 .forEach(d -> {
                     if (disciplinas.stream().filter(disc -> disc instanceof DisciplinaOptativa).findFirst().equals(d)) {
-                        System.out.println("\n📙 DISCIPLINAS OPTATIVAS:");
+                        System.out.println("\n  DISCIPLINAS OPTATIVAS:");
                     }
                     exibirDetalheDisciplina(d);
                 });
@@ -184,17 +184,17 @@ public class RelatorioSimulacao {
     }
     
     /**
-     * Exibe detalhes de uma disciplina específica
+     * Exibe detalhes de uma disciplina especifica
      */
     private void exibirDetalheDisciplina(Disciplina disciplina) {
-        System.out.printf("   • %s (%s) - %dh%n",
+        System.out.printf("     %s (%s) - %dh%n",
                 disciplina.getNome(),
                 disciplina.getCodigo(),
                 disciplina.getCargaHoraria());
         
-        // Pré-requisitos
+        // Pre-requisitos
         if (!disciplina.getValidadoresPreRequisito().isEmpty()) {
-            System.out.print("     Pré-requisitos: ");
+            System.out.print("     Pre-requisitos: ");
             for (int i = 0; i < disciplina.getValidadoresPreRequisito().size(); i++) {
                 if (i > 0) System.out.print(", ");
                 System.out.print("[Validador " + (i + 1) + "]");
@@ -215,11 +215,11 @@ public class RelatorioSimulacao {
     }
     
     /**
-     * Exibe relatório de turmas disponíveis
+     * Exibe relatorio de turmas disponiveis
      */
     public void exibirRelatorioTurmas(List<Turma> turmas) {
         System.out.println("\n" + "=".repeat(60));
-        System.out.println("RELATÓRIO DE TURMAS DISPONÍVEIS");
+        System.out.println("RELATORIO DE TURMAS DISPONIVEIS");
         System.out.println("=".repeat(60));
         
         if (turmas.isEmpty()) {
@@ -228,7 +228,7 @@ public class RelatorioSimulacao {
         }
         
         for (Turma turma : turmas) {
-            System.out.printf("\n🏫 Turma %s - %s%n",
+            System.out.printf("\n  Turma %s - %s%n",
                     turma.getId(),
                     turma.getDisciplina().getNome());
             System.out.printf("   Disciplina: %s (%s)%n",
@@ -236,35 +236,35 @@ public class RelatorioSimulacao {
                     turma.getDisciplina().getCodigo());
             System.out.printf("   Tipo: %s%n", getTipoDisciplina(turma.getDisciplina()));
             System.out.printf("   Professor: %s%n", turma.getProfessor());
-            System.out.printf("   Horário: %s%n", turma.getHorario());
-            System.out.printf("   Vagas: %d/%d (%.1f%% ocupação)%n",
+            System.out.printf("   Horario: %s%n", turma.getHorario());
+            System.out.printf("   Vagas: %d/%d (%.1f%% ocupacao)%n",
                     turma.getVagasOcupadas(),
                     turma.getVagas(),
                     (double) turma.getVagasOcupadas() / turma.getVagas() * 100);
-            System.out.printf("   Carga Horária: %dh%n", turma.getDisciplina().getCargaHoraria());
+            System.out.printf("   Carga Horaria: %dh%n", turma.getDisciplina().getCargaHoraria());
         }
         
         System.out.println("=".repeat(60));
     }
     
     /**
-     * Exibe relatório de simulação de matrícula
+     * Exibe relatorio de simulacao de matricula
      */
     public void exibirSimulacaoMatricula(Aluno aluno, List<Turma> turmasDisponiveis) {
         System.out.println("\n" + "=".repeat(60));
-        System.out.println("SIMULAÇÃO DE MATRÍCULA");
+        System.out.println("SIMULACAO DE MATRICULA");
         System.out.println("=".repeat(60));
         
         System.out.println("Aluno: " + aluno.getNome() + " (" + aluno.getMatricula() + ")");
-        System.out.println("Carga Horária Disponível: " +
+        System.out.println("Carga Horaria Disponivel: " +
                 (aluno.getCargaHorariaMaxima() - aluno.calcularCargaHorariaPlanejamento()) + "h");
         
-        System.out.println("\n📋 TURMAS DISPONÍVEIS PARA MATRÍCULA:");
+        System.out.println("\n[] TURMAS DISPONIVEIS PARA MATRICULA:");
         
         for (Turma turma : turmasDisponiveis) {
             System.out.printf("\n   🏫 %s - %s%n", turma.getId(), turma.getDisciplina().getNome());
             
-            // Verificar possibilidade de matrícula
+            // Verificar possibilidade de matricula
             String status = verificarPossibilidadeMatricula(aluno, turma);
             System.out.println("      Status: " + status);
         }
@@ -273,27 +273,27 @@ public class RelatorioSimulacao {
     }
     
     /**
-     * Verifica se é possível matricular o aluno na turma
+     * Verifica se e possivel matricular o aluno na turma
      */
     private String verificarPossibilidadeMatricula(Aluno aluno, Turma turma) {
         // Verificar vagas
         if (!turma.temVagasDisponiveis()) {
-            return "❌ Turma cheia";
+            return "  Turma cheia";
         }
         
-        // Verificar carga horária
+        // Verificar carga horaria
         if (!aluno.podeAdicionarCargaHoraria(turma.getDisciplina().getCargaHoraria())) {
-            return "❌ Carga horária excedida";
+            return "  Carga horaria excedida";
         }
         
-        // Verificar pré-requisitos
+        // Verificar pre-requisitos
         for (ValidadorPreRequisito validador : turma.getDisciplina().getValidadoresPreRequisito()) {
             if (!validador.validar(aluno, turma.getDisciplina())) {
-                return "❌ Pré-requisito não cumprido";
+                return "  Pre-requisito nao cumprido";
             }
         }
         
-        return "✅ Disponível para matrícula";
+        return "  Disponivel para matricula";
     }
     
     /**
@@ -301,7 +301,7 @@ public class RelatorioSimulacao {
      */
     private String getTipoDisciplina(Disciplina disciplina) {
         if (disciplina instanceof DisciplinaObrigatoria) {
-            return "Obrigatória";
+            return "Obrigatoria";
         } else if (disciplina instanceof DisciplinaEletiva) {
             return "Eletiva";
         } else if (disciplina instanceof DisciplinaOptativa) {
