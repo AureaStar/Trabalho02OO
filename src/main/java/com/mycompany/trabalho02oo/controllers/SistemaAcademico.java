@@ -1,70 +1,270 @@
 package com.mycompany.trabalho02oo.controllers;
 
 import com.mycompany.trabalho02oo.models.*;
+import com.mycompany.trabalho02oo.exceptions.*;
+import com.mycompany.trabalho02oo.validators.ValidadorPreRequisito;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
+/**
+ * Orquestrador central da simulação. Responsável por:
+ * - Carregar dados de disciplinas, turmas e alunos
+ * - Gerenciar o processo de planejamento de matrícula para os alunos
+ * - Aplicar todas as regras de validação (pré-requisitos, co-requisitos, carga horária, vagas, conflitos)
+ * - Atualizar o histórico do aluno e gerar os relatórios da simulação
+ */
 public class SistemaAcademico {
-    private List<Aluno> alunos;
-    private List<Disciplina> disciplinas;
-    private List<Turma> turmas;
+    private Map<String, Aluno> alunos;
+    private Map<String, Disciplina> disciplinas;
+    private Map<String, Turma> turmas;
     
     public SistemaAcademico() {
+        this.alunos = new HashMap<>();
+        this.disciplinas = new HashMap<>();
+        this.turmas = new HashMap<>();
     }
     
     // CRUD operations for Aluno
     public void adicionarAluno(Aluno aluno) {
-        // Implementation later
+        alunos.put(aluno.getMatricula(), aluno);
     }
     
     public void removerAluno(String matricula) {
-        // Implementation later
+        alunos.remove(matricula);
     }
     
     public Aluno buscarAluno(String matricula) {
-        // Implementation later
-        return null;
+        return alunos.get(matricula);
     }
     
     // CRUD operations for Disciplina
     public void adicionarDisciplina(Disciplina disciplina) {
-        // Implementation later
+        disciplinas.put(disciplina.getCodigo(), disciplina);
     }
     
     public void removerDisciplina(String codigo) {
-        // Implementation later
+        disciplinas.remove(codigo);
     }
     
     public Disciplina buscarDisciplina(String codigo) {
-        // Implementation later
-        return null;
+        return disciplinas.get(codigo);
     }
     
     // CRUD operations for Turma
     public void adicionarTurma(Turma turma) {
-        // Implementation later
+        turmas.put(turma.getId(), turma);
     }
     
-    public void removerTurma(String codigo) {
-        // Implementation later
+    public void removerTurma(String id) {
+        turmas.remove(id);
     }
     
-    public Turma buscarTurma(String codigo) {
-        // Implementation later
-        return null;
+    public Turma buscarTurma(String id) {
+        return turmas.get(id);
+    }
+    
+    /**
+     * Processa a simulação de matrícula para um aluno
+     */
+    public RelatorioMatricula simularMatricula(String matriculaAluno) throws MatriculaException {
+        Aluno aluno = buscarAluno(matriculaAluno);
+        if (aluno == null) {
+            throw new ValidacaoMatriculaException("Aluno não encontrado: " + matriculaAluno);
+        }
+        
+        RelatorioMatricula relatorio = new RelatorioMatricula(matriculaAluno);
+        List<Turma> turmasDesejadas = new ArrayList<>(aluno.getPlanejamentoFuturo());
+        List<Turma> turmasAceitas = new ArrayList<>();
+        
+        // Ordena turmas por prioridade (obrigatórias > eletivas > optativas)
+        turmasDesejadas.sort((t1, t2) -> 
+            Integer.compare(t1.getDisciplina().getPrioridade(), t2.getDisciplina().getPrioridade()));
+        
+        int cargaHorariaAtual = 0;
+        
+        for (Turma turma : turmasDesejadas) {
+            try {
+                // Verifica se não excede carga horária máxima
+                if (cargaHorariaAtual + turma.getDisciplina().getCargaHoraria() > aluno.getCargaHorariaMaxima()) {
+                    relatorio.adicionarItem(turma, RelatorioMatricula.StatusMatricula.REJEITADA, 
+                        "Carga horária máxima excedida");
+                    continue;
+                }
+                
+                // Valida pré-requisitos
+                validarPreRequisitos(aluno, turma.getDisciplina());
+                
+                // Valida co-requisitos
+                validarCoRequisitos(aluno, turma.getDisciplina(), turmasDesejadas);
+                
+                // Verifica vagas
+                if (!turma.temVagas()) {
+                    throw new TurmaCheiaException("Turma " + turma.getId() + " está cheia");
+                }
+                
+                // Verifica conflitos de horário
+                validarConflitoHorario(turma, turmasAceitas);
+                
+                // Se chegou até aqui, a matrícula é válida
+                turmasAceitas.add(turma);
+                cargaHorariaAtual += turma.getDisciplina().getCargaHoraria();
+                turma.adicionarMatricula(matriculaAluno);
+                
+                relatorio.adicionarItem(turma, RelatorioMatricula.StatusMatricula.ACEITA, 
+                    "Matrícula realizada com sucesso");
+                
+            } catch (MatriculaException e) {
+                relatorio.adicionarItem(turma, RelatorioMatricula.StatusMatricula.REJEITADA, 
+                    e.getMessage());
+            }
+        }
+        
+        return relatorio;
     }
     
     // Matricula operations
-    public void matricularAluno(String matriculaAluno, String codigoTurma) {
-        // Implementation later
+    public void matricularAluno(String matriculaAluno, String codigoTurma) throws MatriculaException {
+        Aluno aluno = buscarAluno(matriculaAluno);
+        if (aluno == null) {
+            throw new ValidacaoMatriculaException("Aluno não encontrado: " + matriculaAluno);
+        }
+        
+        Turma turma = buscarTurma(codigoTurma);
+        if (turma == null) {
+            throw new ValidacaoMatriculaException("Turma não encontrada: " + codigoTurma);
+        }
+        
+        // Verificar se a turma tem vagas
+        if (turma.getVagasOcupadas() >= turma.getVagas()) {
+            throw new TurmaCheiaException("Turma " + codigoTurma + " está cheia");
+        }
+        
+        // Verificar carga horária
+        if (!aluno.podeAdicionarCargaHoraria(turma.getDisciplina().getCargaHoraria())) {
+            throw new CargaHorariaExcedidaException("Carga horária máxima excedida");
+        }
+        
+        // Verificar pré-requisitos
+        for (ValidadorPreRequisito validador : turma.getDisciplina().getValidadoresPreRequisito()) {
+            if (!validador.validar(aluno, turma.getDisciplina())) {
+                throw new PreRequisitoNaoCumpridoException(validador.getMensagemErro());
+            }
+        }
+        
+        // Verificar co-requisitos
+        for (Disciplina coRequisito : turma.getDisciplina().getCoRequisitos()) {
+            boolean temCoRequisito = aluno.getPlanejamentoFuturo().stream()
+                    .anyMatch(t -> t.getDisciplina().equals(coRequisito));
+            if (!temCoRequisito) {
+                throw new CoRequisitoNaoAtendidoException("Co-requisito não atendido: " + coRequisito.getNome());
+            }
+        }
+        
+        // Verificar conflitos de horário
+        verificarConflitoHorario(aluno, turma);
+        
+        // Realizar matrícula
+        aluno.adicionarTurmaPlanejamento(turma);
+        turma.adicionarAluno(aluno);
     }
     
-    public void desmatricularAluno(String matriculaAluno, String codigoTurma) {
-        // Implementation later
+    private void validarPreRequisitos(Aluno aluno, Disciplina disciplina) throws PreRequisitoNaoCumpridoException {
+        for (ValidadorPreRequisito validador : disciplina.getValidadoresPreRequisito()) {
+            if (!validador.validar(aluno, disciplina)) {
+                throw new PreRequisitoNaoCumpridoException(validador.getMensagemErro());
+            }
+        }
     }
     
-    // Planning operations
-    public Planejamento gerarPlanejamento(String matriculaAluno) {
-        // Implementation later
-        return null;
+    private void validarCoRequisitos(Aluno aluno, Disciplina disciplina, List<Turma> turmasDesejadas) 
+            throws CoRequisitoNaoAtendidoException {
+        List<Disciplina> coRequisitos = disciplina.getCoRequisitos();
+        if (!coRequisitos.isEmpty()) {
+            List<Disciplina> disciplinasDesejadas = turmasDesejadas.stream()
+                .map(Turma::getDisciplina)
+                .collect(Collectors.toList());
+            
+            for (Disciplina coRequisito : coRequisitos) {
+                if (!disciplinasDesejadas.contains(coRequisito)) {
+                    throw new CoRequisitoNaoAtendidoException(
+                        "Co-requisito não atendido: " + coRequisito.getCodigo());
+                }
+            }
+        }
+    }
+    
+    private void validarConflitoHorario(Turma novaTurma, List<Turma> turmasAceitas) 
+            throws ConflitoDeHorarioException {
+        for (Turma turmaExistente : turmasAceitas) {
+            if (novaTurma.getHorario().equals(turmaExistente.getHorario())) {
+                // Verifica precedência
+                int prioridadeNova = novaTurma.getDisciplina().getPrioridade();
+                int prioridadeExistente = turmaExistente.getDisciplina().getPrioridade();
+                
+                if (prioridadeNova == prioridadeExistente) {
+                    throw new ConflitoDeHorarioException(
+                        "Conflito de horário entre disciplinas de mesma precedência");
+                } else if (prioridadeNova > prioridadeExistente) {
+                    // Nova turma tem menor prioridade, rejeita
+                    throw new ConflitoDeHorarioException(
+                        "Conflito de horário: disciplina com menor precedência rejeitada");
+                }
+                // Se nova turma tem maior prioridade, remove a existente
+                turmasAceitas.remove(turmaExistente);
+                break;
+            }
+        }
+    }
+    
+    private void verificarConflitoHorario(Aluno aluno, Turma novaTurma) throws ConflitoDeHorarioException {
+        for (Turma turmaExistente : aluno.getPlanejamentoFuturo()) {
+            if (turmasConflitam(turmaExistente, novaTurma)) {
+                // Verificar precedência
+                int prioridadeExistente = turmaExistente.getDisciplina().getPrioridade();
+                int prioridadeNova = novaTurma.getDisciplina().getPrioridade();
+                
+                if (prioridadeExistente == prioridadeNova) {
+                    // Mesmo nível de prioridade - rejeitar
+                    throw new ConflitoDeHorarioException("Conflito de horário entre disciplinas de mesma precedência");
+                } else if (prioridadeExistente > prioridadeNova) {
+                    // Disciplina existente tem maior prioridade - rejeitar nova
+                    throw new ConflitoDeHorarioException("Conflito de horário - disciplina existente tem maior precedência");
+                } else {
+                    // Nova disciplina tem maior prioridade - remover existente
+                    aluno.removerTurmaPlanejamento(turmaExistente);
+                    turmaExistente.removerAluno(aluno);
+                }
+            }
+        }
+    }
+    
+    private boolean turmasConflitam(Turma turma1, Turma turma2) {
+        // Implementação simplificada - assumindo que horários conflitam se contêm o mesmo dia
+        String horario1 = turma1.getHorario().toLowerCase();
+        String horario2 = turma2.getHorario().toLowerCase();
+        
+        String[] dias = {"segunda", "terça", "quarta", "quinta", "sexta", "sábado"};
+        
+        for (String dia : dias) {
+            if (horario1.contains(dia) && horario2.contains(dia)) {
+                return true; // Mesmo dia - pode ter conflito
+            }
+        }
+        return false;
+    }
+    
+    public List<Aluno> listarAlunos() {
+        return new ArrayList<>(alunos.values());
+    }
+    
+    public List<Disciplina> listarDisciplinas() {
+        return new ArrayList<>(disciplinas.values());
+    }
+    
+    public List<Turma> listarTurmas() {
+        return new ArrayList<>(turmas.values());
     }
 }

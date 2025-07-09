@@ -1,25 +1,141 @@
 package com.mycompany.trabalho02oo.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Representa uma oferta específica de uma disciplina.
+ * Contém informações como ID da turma, capacidade máxima, 
+ * número atual de alunos matriculados e o horário fixo da aula.
+ */
 public class Turma {
-    private String codigo;
+    private String id; // ID da turma
     private Disciplina disciplina;
     private String professor;
-    private int vagas;
-    private int vagasOcupadas;
-    private List<String> horarios;
-    private List<Aluno> alunosMatriculados;
+    private int capacidadeMaxima; // capacidade máxima de alunos
+    private int alunosMatriculados; // número atual de matriculados
+    private String horario; // horário fixo da aula (ex: segunda 08h–10h)
+    private List<String> matriculasAlunos; // matrículas dos alunos
     
     public Turma() {
+        this.matriculasAlunos = new ArrayList<>();
+        this.alunosMatriculados = 0;
     }
     
-    public Turma(String codigo, Disciplina disciplina, String professor, int vagas) {
-        this.codigo = codigo;
+    public Turma(String id, Disciplina disciplina, String professor, int capacidadeMaxima, String horario) {
+        this.id = id;
         this.disciplina = disciplina;
         this.professor = professor;
-        this.vagas = vagas;
+        this.capacidadeMaxima = capacidadeMaxima;
+        this.horario = horario;
+        this.matriculasAlunos = new ArrayList<>();
+        this.alunosMatriculados = 0;
     }
     
-    // Getters and Setters will be implemented later
+    public boolean temVagas() {
+        return alunosMatriculados < capacidadeMaxima;
+    }
+    
+    public void adicionarMatricula(String matriculaAluno) {
+        if (temVagas() && !matriculasAlunos.contains(matriculaAluno)) {
+            matriculasAlunos.add(matriculaAluno);
+            alunosMatriculados++;
+        }
+    }
+    
+    public void removerMatricula(String matriculaAluno) {
+        if (matriculasAlunos.remove(matriculaAluno)) {
+            alunosMatriculados--;
+        }
+    }
+    
+    /**
+     * Adiciona um aluno à turma
+     */
+    public void adicionarAluno(Aluno aluno) {
+        if (!matriculasAlunos.contains(aluno.getMatricula())) {
+            matriculasAlunos.add(aluno.getMatricula());
+            alunosMatriculados++;
+        }
+    }
+    
+    /**
+     * Remove um aluno da turma
+     */
+    public void removerAluno(Aluno aluno) {
+        if (matriculasAlunos.remove(aluno.getMatricula())) {
+            alunosMatriculados--;
+        }
+    }
+    
+    /**
+     * Verifica se há vagas disponíveis
+     */
+    public boolean temVagasDisponiveis() {
+        return alunosMatriculados < capacidadeMaxima;
+    }
+    
+    /**
+     * Retorna o número de vagas restantes
+     */
+    public int getVagasRestantes() {
+        return capacidadeMaxima - alunosMatriculados;
+    }
+    
+    // Getters e Setters
+    public String getId() {
+        return id;
+    }
+    
+    public void setId(String id) {
+        this.id = id;
+    }
+    
+    public Disciplina getDisciplina() {
+        return disciplina;
+    }
+    
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
+    }
+    
+    public String getProfessor() {
+        return professor;
+    }
+    
+    public void setProfessor(String professor) {
+        this.professor = professor;
+    }
+    
+    public int getCapacidadeMaxima() {
+        return capacidadeMaxima;
+    }
+    
+    public void setCapacidadeMaxima(int capacidadeMaxima) {
+        this.capacidadeMaxima = capacidadeMaxima;
+    }
+    
+    public int getAlunosMatriculados() {
+        return alunosMatriculados;
+    }
+    
+    public String getHorario() {
+        return horario;
+    }
+    
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+    
+    public List<String> getMatriculasAlunos() {
+        return new ArrayList<>(matriculasAlunos);
+    }
+    
+    public int getVagas() {
+        return capacidadeMaxima;
+    }
+    
+    public int getVagasOcupadas() {
+        return alunosMatriculados;
+    }
 }

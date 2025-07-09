@@ -1,5 +1,9 @@
 package com.mycompany.trabalho02oo.models;
 
+/**
+ * Representa uma disciplina obrigatória do currículo.
+ * Tem a maior precedência em conflitos de horário.
+ */
 public class DisciplinaObrigatoria extends Disciplina {
     public DisciplinaObrigatoria(String codigo, String nome, int cargaHoraria) {
         super(codigo, nome, cargaHoraria);
@@ -7,6 +11,6 @@ public class DisciplinaObrigatoria extends Disciplina {
 
     @Override
     public int getPrioridade() {
-        return 3;
+        return 1; // Maior prioridade (1 = mais alta)
     }
 }
