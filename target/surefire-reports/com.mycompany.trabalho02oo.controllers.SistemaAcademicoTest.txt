@@ -1,0 +1,27 @@
+-------------------------------------------------------------------------------
+Test set: com.mycompany.trabalho02oo.controllers.SistemaAcademicoTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.129 s <<< FAILURE! -- in com.mycompany.trabalho02oo.controllers.SistemaAcademicoTest
+com.mycompany.trabalho02oo.controllers.SistemaAcademicoTest.testeSimularMatricula -- Time elapsed: 0.013 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Relatorio deve conter itens ==> expected: <false> but was: <true>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertFalse.failNotFalse(AssertFalse.java:63)
+	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:36)
+	at org.junit.jupiter.api.Assertions.assertFalse(Assertions.java:239)
+	at com.mycompany.trabalho02oo.controllers.SistemaAcademicoTest.testeSimularMatricula(SistemaAcademicoTest.java:80)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+com.mycompany.trabalho02oo.controllers.SistemaAcademicoTest.testeBuscarAlunoInexistente -- Time elapsed: 0.002 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Deve lancar excecao para aluno inexistente ==> Expected java.lang.Exception to be thrown, but nothing was thrown.
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
+	at com.mycompany.trabalho02oo.controllers.SistemaAcademicoTest.testeBuscarAlunoInexistente(SistemaAcademicoTest.java:98)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
