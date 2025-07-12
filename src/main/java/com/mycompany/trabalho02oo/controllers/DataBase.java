@@ -140,37 +140,37 @@ public class DataBase {
 
     public void inicializaTurmas() {
         // Turmas para disciplinas basicas
-        sistemaAcademico.cadastrarTurma("TURMA1", sistemaAcademico.buscarDisciplinaPorCodigo("MAT101"), "Prof. Silva", 30, "Segunda-feira, 14h - 16h");
-        sistemaAcademico.cadastrarTurma("TURMA2", sistemaAcademico.buscarDisciplinaPorCodigo("MAT102"), "Prof. Souza", 25, "Segunda-feira, 14h - 16h");
-        sistemaAcademico.cadastrarTurma("TURMA3", sistemaAcademico.buscarDisciplinaPorCodigo("POR101"), "Prof. Lima", 20, "Segunda-feira, 14h - 16h");
-        sistemaAcademico.cadastrarTurma("TURMA4", sistemaAcademico.buscarDisciplinaPorCodigo("HIS101"), "Prof. Andrade", 30, "Segunda-feira, 14h - 16h");
-        sistemaAcademico.cadastrarTurma("TURMA5", sistemaAcademico.buscarDisciplinaPorCodigo("FIS201"), "Prof. Ribeiro", 25, "Sexta-feira, 16h - 18h");
-        sistemaAcademico.cadastrarTurma("TURMA6", sistemaAcademico.buscarDisciplinaPorCodigo("BIO201"), "Prof. Almeida", 30, "Segunda-feira, 10h - 12h");
-        sistemaAcademico.cadastrarTurma("TURMA7", sistemaAcademico.buscarDisciplinaPorCodigo("GEO201"), "Prof. Teixeira", 20, "Terca-feira, 8h - 10h");
-        sistemaAcademico.cadastrarTurma("TURMA8", sistemaAcademico.buscarDisciplinaPorCodigo("QUI301"), "Prof. Castro", 25, "Quarta-feira, 14h - 16h");
-        sistemaAcademico.cadastrarTurma("TURMA9", sistemaAcademico.buscarDisciplinaPorCodigo("ART301"), "Prof. Nogueira", 30, "Quinta-feira, 10h - 12h");
-        sistemaAcademico.cadastrarTurma("TURMA10", sistemaAcademico.buscarDisciplinaPorCodigo("MUS301"), "Prof. Barbosa", 20, "Sexta-feira, 8h - 10h");
+        sistemaAcademico.cadastrarTurma("FIS201A", sistemaAcademico.buscarDisciplinaPorCodigo("FIS201"), "Prof. Ribeiro", 25, "Segunda-feira, 14h - 16h");
+        sistemaAcademico.cadastrarTurma("MAT101A", sistemaAcademico.buscarDisciplinaPorCodigo("MAT101"), "Prof. Silva", 30, "Segunda-feira, 14h - 16h");
+        sistemaAcademico.cadastrarTurma("MAT102A", sistemaAcademico.buscarDisciplinaPorCodigo("MAT102"), "Prof. Souza", 25, "Segunda-feira, 8h - 10h");
+        sistemaAcademico.cadastrarTurma("POR101A", sistemaAcademico.buscarDisciplinaPorCodigo("POR101"), "Prof. Lima", 20, "Segunda-feira, 8h - 10h");
+        sistemaAcademico.cadastrarTurma("HIS101A", sistemaAcademico.buscarDisciplinaPorCodigo("HIS101"), "Prof. Andrade", 30, "Segunda-feira, 8h - 10h");
+        sistemaAcademico.cadastrarTurma("BIO201A", sistemaAcademico.buscarDisciplinaPorCodigo("BIO201"), "Prof. Almeida", 30, "Segunda-feira, 8h - 10h");
+        sistemaAcademico.cadastrarTurma("GEO201A", sistemaAcademico.buscarDisciplinaPorCodigo("GEO201"), "Prof. Teixeira", 20, "Segunda-feira, 8h - 10h");
+        sistemaAcademico.cadastrarTurma("QUI301A", sistemaAcademico.buscarDisciplinaPorCodigo("QUI301"), "Prof. Castro", 25, "Segunda-feira, 14h - 16h");
+        sistemaAcademico.cadastrarTurma("ART301A", sistemaAcademico.buscarDisciplinaPorCodigo("ART301"), "Prof. Nogueira", 30, "Segunda-feira, 8h - 10h");
+        sistemaAcademico.cadastrarTurma("MUS301A", sistemaAcademico.buscarDisciplinaPorCodigo("MUS301"), "Prof. Barbosa", 20, "Segunda-feira, 8h - 10h");
         
         // Turmas para disciplinas avancadas
-        sistemaAcademico.cadastrarTurma("TURMA11", sistemaAcademico.buscarDisciplinaPorCodigo("MAT201"), "Prof. Calculus", 20, "Segunda-feira, 8h - 10h");
-        sistemaAcademico.cadastrarTurma("TURMA12", sistemaAcademico.buscarDisciplinaPorCodigo("MAT202"), "Prof. Derivada", 20, "Terca-feira, 14h - 16h");
-        sistemaAcademico.cadastrarTurma("TURMA13", sistemaAcademico.buscarDisciplinaPorCodigo("FIS301"), "Prof. Newton", 15, "Quarta-feira, 8h - 10h");
-        sistemaAcademico.cadastrarTurma("TURMA14", sistemaAcademico.buscarDisciplinaPorCodigo("EST401"), "Prof. Bayes", 25, "Quinta-feira, 8h - 10h");
-        sistemaAcademico.cadastrarTurma("TURMA15", sistemaAcademico.buscarDisciplinaPorCodigo("ALG401"), "Prof. Matriz", 25, "Sexta-feira, 10h - 12h");
-        sistemaAcademico.cadastrarTurma("TURMA16", sistemaAcademico.buscarDisciplinaPorCodigo("ENG501"), "Prof. Software", 20, "Segunda-feira, 16h - 18h");
-        sistemaAcademico.cadastrarTurma("TURMA17", sistemaAcademico.buscarDisciplinaPorCodigo("BD501"), "Prof. Database", 18, "Terca-feira, 16h - 18h");
-        sistemaAcademico.cadastrarTurma("TURMA18", sistemaAcademico.buscarDisciplinaPorCodigo("LAB501"), "Prof. Code", 15, "Quarta-feira, 10h - 12h");
-        sistemaAcademico.cadastrarTurma("TURMA19", sistemaAcademico.buscarDisciplinaPorCodigo("IA601"), "Prof. Robot", 12, "Quinta-feira, 16h - 18h");
-        sistemaAcademico.cadastrarTurma("TURMA20", sistemaAcademico.buscarDisciplinaPorCodigo("RDC601"), "Prof. Network", 20, "Sexta-feira, 14h - 16h");
-        sistemaAcademico.cadastrarTurma("TURMA21", sistemaAcademico.buscarDisciplinaPorCodigo("SEC701"), "Prof. Secure", 15, "Segunda-feira, 12h - 14h");
-        sistemaAcademico.cadastrarTurma("TURMA22", sistemaAcademico.buscarDisciplinaPorCodigo("TCC801"), "Prof. Thesis", 10, "Terca-feira, 12h - 14h");
-        sistemaAcademico.cadastrarTurma("TURMA23", sistemaAcademico.buscarDisciplinaPorCodigo("MOB801"), "Prof. Mobile", 15, "Quarta-feira, 12h - 14h");
-        sistemaAcademico.cadastrarTurma("TURMA24", sistemaAcademico.buscarDisciplinaPorCodigo("WEB801"), "Prof. Web", 18, "Quinta-feira, 12h - 14h");
+        sistemaAcademico.cadastrarTurma("MAT201A", sistemaAcademico.buscarDisciplinaPorCodigo("MAT201"), "Prof. Calculus", 20, "Segunda-feira, 8h - 10h");
+        sistemaAcademico.cadastrarTurma("MAT202A", sistemaAcademico.buscarDisciplinaPorCodigo("MAT202"), "Prof. Derivada", 20, "Terca-feira, 14h - 16h");
+        sistemaAcademico.cadastrarTurma("FIS301A", sistemaAcademico.buscarDisciplinaPorCodigo("FIS301"), "Prof. Newton", 15, "Quarta-feira, 8h - 10h");
+        sistemaAcademico.cadastrarTurma("EST401A", sistemaAcademico.buscarDisciplinaPorCodigo("EST401"), "Prof. Bayes", 25, "Quinta-feira, 8h - 10h");
+        sistemaAcademico.cadastrarTurma("ALG401A", sistemaAcademico.buscarDisciplinaPorCodigo("ALG401"), "Prof. Matriz", 25, "Sexta-feira, 10h - 12h");
+        sistemaAcademico.cadastrarTurma("ENG501A", sistemaAcademico.buscarDisciplinaPorCodigo("ENG501"), "Prof. Software", 20, "Segunda-feira, 16h - 18h");
+        sistemaAcademico.cadastrarTurma("BD501A", sistemaAcademico.buscarDisciplinaPorCodigo("BD501"), "Prof. Database", 18, "Terca-feira, 16h - 18h");
+        sistemaAcademico.cadastrarTurma("LAB501A", sistemaAcademico.buscarDisciplinaPorCodigo("LAB501"), "Prof. Code", 15, "Quarta-feira, 10h - 12h");
+        sistemaAcademico.cadastrarTurma("IA601A", sistemaAcademico.buscarDisciplinaPorCodigo("IA601"), "Prof. Robot", 12, "Quinta-feira, 16h - 18h");
+        sistemaAcademico.cadastrarTurma("RDC601A", sistemaAcademico.buscarDisciplinaPorCodigo("RDC601"), "Prof. Network", 20, "Sexta-feira, 14h - 16h");
+        sistemaAcademico.cadastrarTurma("SEC701A", sistemaAcademico.buscarDisciplinaPorCodigo("SEC701"), "Prof. Secure", 15, "Segunda-feira, 12h - 14h");
+        sistemaAcademico.cadastrarTurma("TCC801A", sistemaAcademico.buscarDisciplinaPorCodigo("TCC801"), "Prof. Thesis", 10, "Terca-feira, 12h - 14h");
+        sistemaAcademico.cadastrarTurma("MOB801A", sistemaAcademico.buscarDisciplinaPorCodigo("MOB801"), "Prof. Mobile", 15, "Quarta-feira, 12h - 14h");
+        sistemaAcademico.cadastrarTurma("WEB801A", sistemaAcademico.buscarDisciplinaPorCodigo("WEB801"), "Prof. Web", 18, "Quinta-feira, 12h - 14h");
         
         // Turmas para disciplinas com validadores complexos
-        sistemaAcademico.cadastrarTurma("TURMA25", sistemaAcademico.buscarDisciplinaPorCodigo("CMP901"), "Prof. Science", 10, "Sexta-feira, 12h - 14h");
-        sistemaAcademico.cadastrarTurma("TURMA26", sistemaAcademico.buscarDisciplinaPorCodigo("OPT901"), "Prof. Optimize", 12, "Segunda-feira, 18h - 20h");
-        sistemaAcademico.cadastrarTurma("TURMA27", sistemaAcademico.buscarDisciplinaPorCodigo("TEO901"), "Prof. Theory", 15, "Terca-feira, 18h - 20h");
+        sistemaAcademico.cadastrarTurma("CMP901A", sistemaAcademico.buscarDisciplinaPorCodigo("CMP901"), "Prof. Science", 10, "Sexta-feira, 12h - 14h");
+        sistemaAcademico.cadastrarTurma("OPT901A", sistemaAcademico.buscarDisciplinaPorCodigo("OPT901"), "Prof. Optimize", 12, "Segunda-feira, 18h - 20h");
+        sistemaAcademico.cadastrarTurma("TEO901A", sistemaAcademico.buscarDisciplinaPorCodigo("TEO901"), "Prof. Theory", 15, "Terca-feira, 18h - 20h");
     }
 
     public SistemaAcademico getSistemaAcademico() { return sistemaAcademico; }

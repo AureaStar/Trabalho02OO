@@ -93,7 +93,7 @@ public class SistemaAcademico {
         
         for (Disciplina preRequisito : turma.getDisciplina().getPreRequisitos()) {
             if (!aluno.cumpriuPreRequisito(preRequisito)) {
-                throw new PreRequisitoNaoCumpridoException("Pre-requisito nao cumprido: " + 
+                throw new PreRequisitoNaoCumpridoException("\n Pre-requisito nao cumprido: " + 
                     preRequisito.getNome() + " para disciplina " + turma.getDisciplina().getNome());
             }
         }
@@ -126,12 +126,12 @@ public class SistemaAcademico {
                     aluno.removerTurmaPlanejamento(turmaExistente);
                     return;
                 } else if (precedenciaNova < precedenciaExistente) {
-                    throw new ConflitoDeHorarioException("Conflito de horario: " + 
+                    throw new ConflitoDeHorarioException("Conflito de horario: \n - " + 
                         novaTurma.getDisciplina().getNome() + " (" + novaTurma.getHorario() + ") " +
                         "conflita com " + turmaExistente.getDisciplina().getNome() + 
                         " que tem maior precedencia.");
                 } else {
-                    throw new ConflitoDeHorarioException("Conflito de horario irresolvivel: " + 
+                    throw new ConflitoDeHorarioException("Conflito de horario irresolvivel: \n - " + 
                         novaTurma.getDisciplina().getNome() + " e " + 
                         turmaExistente.getDisciplina().getNome() + 
                         " tem a mesma precedencia no horario " + novaTurma.getHorario());

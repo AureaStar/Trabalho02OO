@@ -7,6 +7,6 @@ public class DisciplinaObrigatoria extends Disciplina {
 
     @Override
     public int getPrioridade() {
-        return 1;
+        return 3;
     }
 }

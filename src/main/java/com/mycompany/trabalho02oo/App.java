@@ -22,6 +22,9 @@ public class App {
             }
         }
 
+        System.out.println("Aluno: " + aluno1.getNome() + " (" + aluno1.getMatricula() + ")");
+        System.out.println("Disciplinas Matriculadas:");
+
         for(Turma turma : aluno1.getPlanejamentoFuturo()) {
             System.out.println("Turma: " + turma.getCodigo() + ", Disciplina: " + turma.getDisciplina().getNome() + ", Professor: " + turma.getProfessor() + ", Horario: " + turma.getHorario());
         }
