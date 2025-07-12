@@ -39,7 +39,6 @@ public class Turma {
             if (alunosMatriculados < capacidadeMaxima) {
                 alunosMatriculados++;
                 alunos.add(aluno);
-                aluno.adicionarTurmaPlanejamento(this);
             } else {
                 throw new TurmaCheiaException("Não há vagas disponíveis na turma.");
             }

@@ -23,9 +23,9 @@ public class App {
         }
 
         for(Turma turma : aluno1.getPlanejamentoFuturo()) {
-            System.out.println("Turma: " + turma.getCodigo() + ", Disciplina: " + turma.getDisciplina().getNome() + ", Professor: " + turma.getProfessor() + ", Horário: " + turma.getHorario());
+            System.out.println("Turma: " + turma.getCodigo() + ", Disciplina: " + turma.getDisciplina().getNome() + ", Professor: " + turma.getProfessor() + ", Horario: " + turma.getHorario());
         }
 
-        System.out.println("Sistema Acadêmico inicializado com sucesso!");
+        System.out.println("Sistema Academico inicializado com sucesso!");
     }
 }

@@ -13,12 +13,12 @@ public class ValidadorSimples implements ValidadorPreRequisito {
 
     @Override
     public boolean validar(Aluno aluno, Disciplina disciplina) {
-        return aluno.cumpriuPreRequisitos(disciplinaPreRequisito);
+        return aluno.cumpriuPreRequisito(disciplinaPreRequisito);
     }
 
     @Override
     public String getMensagemErro() {
-        return "O aluno não cumpriu os pré-requisitos para a disciplina " + disciplinaPreRequisito.getNome();
+        return "O aluno nao cumpriu os pre-requisitos para a disciplina " + disciplinaPreRequisito.getNome();
     }
     
 }

@@ -15,7 +15,7 @@ public class Aluno {
     public Aluno(String nome, String matricula) {
         this.nome = nome;
         this.matricula = matricula;
-        this.horasMaximas = 360;
+        this.horasMaximas = 3600;
         this.disciplinasCursadas = new HashMap<>();
         this.planejamentoFuturo = new ArrayList<>();
     }
@@ -59,8 +59,16 @@ public class Aluno {
     }
 
     public boolean cumpriuPreRequisitos(Disciplina disciplina) {
-        Double nota = disciplinasCursadas.get(disciplina);
-        return nota != null && nota >= 60;
+        for (Disciplina preRequisito : disciplina.getPreRequisitos()) {
+            if (!foiAprovado(preRequisito)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public boolean cumpriuPreRequisito(Disciplina disciplina) {
+        return foiAprovado(disciplina);
     }
 
     public int getCreditosConcluidos() {

@@ -23,7 +23,7 @@ public class ValidadorLogicoAND implements ValidadorPreRequisito {
 
     @Override
     public String getMensagemErro() {
-        StringBuilder mensagem = new StringBuilder("O aluno não cumpriu os pré-requisitos: ");
+        StringBuilder mensagem = new StringBuilder("O aluno nao cumpriu os pre-requisitos: ");
         for (ValidadorPreRequisito validador : validadores) {
             mensagem.append("\n- ").append(validador.getMensagemErro());
         }
