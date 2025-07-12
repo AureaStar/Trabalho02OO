@@ -3,9 +3,9 @@ package com.mycompany.trabalho02oo.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mycompany.trabalho02oo.exceptions.MatriculaException;
 import com.mycompany.trabalho02oo.exceptions.CargaHorariaExcedidaException;
 import com.mycompany.trabalho02oo.exceptions.ConflitoDeHorarioException;
+import com.mycompany.trabalho02oo.exceptions.MatriculaException;
 import com.mycompany.trabalho02oo.exceptions.PreRequisitoNaoCumpridoException;
 import com.mycompany.trabalho02oo.exceptions.TurmaCheiaException;
 import com.mycompany.trabalho02oo.models.Aluno;
@@ -27,44 +27,59 @@ public class SistemaAcademico {
         this.turmas = new ArrayList<>();
     }
 
-    public void cadastrarAluno(String nome, String matricula) {
+    public Aluno cadastrarAluno(String nome, String matricula) {
         Aluno aluno = new Aluno(nome, matricula);
 
         if (aluno != null && !alunos.contains(aluno)) {
             alunos.add(aluno);
+            return aluno;
         }
+
+        return null;
     }
 
-    public void cadastrarDisciplinaObrigatoria(String codigo, String nome, int cargaHoraria) {
+    public Disciplina cadastrarDisciplinaObrigatoria(String codigo, String nome, int cargaHoraria) {
         Disciplina disciplina = new DisciplinaObrigatoria(codigo, nome, cargaHoraria);
 
         if (disciplina != null && !disciplinas.contains(disciplina)) {
             disciplinas.add(disciplina);
+            return disciplina;
         }
+
+        return null;
     }
 
-    public void cadastrarDisciplinaEletiva(String codigo, String nome, int cargaHoraria) {
+    public Disciplina cadastrarDisciplinaEletiva(String codigo, String nome, int cargaHoraria) {
         Disciplina disciplina = new DisciplinaEletiva(codigo, nome, cargaHoraria);
 
         if (disciplina != null && !disciplinas.contains(disciplina)) {
             disciplinas.add(disciplina);
+            return disciplina;
         }
+
+        return null;
     }
 
-    public void cadastrarDisciplinaOptativa(String codigo, String nome, int cargaHoraria) {
+    public Disciplina cadastrarDisciplinaOptativa(String codigo, String nome, int cargaHoraria) {
         Disciplina disciplina = new DisciplinaOptativa(codigo, nome, cargaHoraria);
 
         if (disciplina != null && !disciplinas.contains(disciplina)) {
             disciplinas.add(disciplina);
+            return disciplina;
         }
+
+        return null;
     }
 
-    public void cadastrarTurma(String codigo, Disciplina disciplina, String professor, int capacidadeMaxima, String horario) {
+    public Turma cadastrarTurma(String codigo, Disciplina disciplina, String professor, int capacidadeMaxima, String horario) {
         Turma turma = new Turma(codigo, disciplina, capacidadeMaxima, professor, horario);
 
         if (turma != null && !turmas.contains(turma)) {
             turmas.add(turma);
+            return turma;
         }
+
+        return null;
     }
 
     public void matricularAlunoEmTurma (Aluno aluno, Turma turma) throws MatriculaException {
@@ -158,5 +173,16 @@ public class SistemaAcademico {
                 .filter(turma -> turma.getCodigo().equals(codigo))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public void addPreRequisito(String codigoDisciplina, String codigoPreRequisito) {
+        Disciplina disciplina = buscarDisciplinaPorCodigo(codigoDisciplina);
+        Disciplina preRequisito = buscarDisciplinaPorCodigo(codigoPreRequisito);
+        
+        if (disciplina == null || preRequisito == null) {
+            throw new IllegalArgumentException("Disciplina ou pre-requisito nao encontrado.");
+        }
+        
+        disciplina.addPreRequisito(preRequisito);
     }
 }
