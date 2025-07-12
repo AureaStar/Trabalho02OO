@@ -10,12 +10,12 @@ public class Aluno {
     private String matricula;
     private Map<Disciplina, Double> disciplinasCursadas;
     private int horasMaximas;
-    private List<Disciplina> planejamentoFuturo;
+    private List<Turma> planejamentoFuturo;
     
-    public Aluno(String nome, String matricula, int horasMaximas) {
+    public Aluno(String nome, String matricula) {
         this.nome = nome;
         this.matricula = matricula;
-        this.horasMaximas = horasMaximas;
+        this.horasMaximas = 360;
         this.disciplinasCursadas = new HashMap<>();
         this.planejamentoFuturo = new ArrayList<>();
     }
@@ -23,15 +23,15 @@ public class Aluno {
     public void adicionarDisciplinaCursada(Disciplina disciplina, double nota) {
         disciplinasCursadas.put(disciplina, nota);
     }
-    
-    public void adicionarDisciplinaPlanejamento(Disciplina disciplina) {
-        if (!planejamentoFuturo.contains(disciplina)) {
-            planejamentoFuturo.add(disciplina);
+
+    public void adicionarTurmaPlanejamento(Turma turma) {
+        if (!planejamentoFuturo.contains(turma)) {
+            planejamentoFuturo.add(turma);
         }
     }
-    
-    public void removerDisciplinaPlanejamento(Disciplina disciplina) {
-        planejamentoFuturo.remove(disciplina);
+
+    public void removerTurmaPlanejamento(Turma turma) {
+        planejamentoFuturo.remove(turma);
     }
     
     public boolean cursouDisciplina(Disciplina disciplina) {
@@ -44,12 +44,12 @@ public class Aluno {
     
     public boolean foiAprovado(Disciplina disciplina) {
         Double nota = disciplinasCursadas.get(disciplina);
-        return nota != null && nota >= 6.0;
+        return nota != null && nota >= 60;
     }
     
     public int calcularHorasPlanejadas() {
         return planejamentoFuturo.stream()
-                .mapToInt(Disciplina::getCargaHoraria)
+                .mapToInt(turma -> turma.getDisciplina().getCargaHoraria())
                 .sum();
     }
     
@@ -57,36 +57,25 @@ public class Aluno {
         int horasAtuais = calcularHorasPlanejadas();
         return (horasAtuais + disciplina.getCargaHoraria()) <= horasMaximas;
     }
-    
-    public String getNome() {
-        return nome;
+
+    public boolean cumpriuPreRequisitos(Disciplina disciplina) {
+        Double nota = disciplinasCursadas.get(disciplina);
+        return nota != null && nota >= 60;
     }
-    
-    public void setNome(String nome) {
-        this.nome = nome;
+
+    public int getCreditosConcluidos() {
+        return disciplinasCursadas.entrySet().stream()
+                .filter(entry -> entry.getValue() >= 60)
+                .mapToInt(entry -> entry.getKey().getCargaHoraria())
+                .sum();
     }
-    
-    public String getMatricula() {
-        return matricula;
-    }
-    
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
-    
-    public Map<Disciplina, Double> getDisciplinasCursadas() {
-        return new HashMap<>(disciplinasCursadas);
-    }
-    
-    public int getHorasMaximas() {
-        return horasMaximas;
-    }
-    
-    public void setHorasMaximas(int horasMaximas) {
-        this.horasMaximas = horasMaximas;
-    }
-    
-    public List<Disciplina> getPlanejamentoFuturo() {
-        return new ArrayList<>(planejamentoFuturo);
-    }
+
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
+    public String getMatricula() { return matricula; }
+    public void setMatricula(String matricula) { this.matricula = matricula; }
+    public Map<Disciplina, Double> getDisciplinasCursadas() { return new HashMap<>(disciplinasCursadas); }
+    public int getHorasMaximas() { return horasMaximas; }
+    public void setHorasMaximas(int horasMaximas) { this.horasMaximas = horasMaximas; }
+    public List<Turma> getPlanejamentoFuturo() { return new ArrayList<>(planejamentoFuturo); }
 }
