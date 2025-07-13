@@ -16,6 +16,7 @@ import com.mycompany.trabalho02oo.models.DisciplinaObrigatoria;
 import com.mycompany.trabalho02oo.models.DisciplinaOptativa;
 import com.mycompany.trabalho02oo.models.Turma;
 import com.mycompany.trabalho02oo.validators.ValidadorPreRequisito;
+import com.mycompany.trabalho02oo.views.RelatorioSimulacao;
 
 public class SistemaAcademico {
     private List<Aluno> alunos;
@@ -83,7 +84,7 @@ public class SistemaAcademico {
         return null;
     }
 
-    public void matricularAlunoEmTurma(Aluno aluno, Turma turma) throws MatriculaException {
+    public void registrarTurmasEmAluno(Aluno aluno, Turma turma) {
         if (!alunos.contains(aluno)) {
             throw new IllegalArgumentException("Aluno nao encontrado no sistema.");
         }
@@ -96,10 +97,20 @@ public class SistemaAcademico {
             throw new IllegalArgumentException("Aluno ja esta planejado para esta turma.");
         }
         
+        // Apenas registra a intencao de cursar a disciplina
+        aluno.adicionarTurmaPlanejamento(turma);
+    }
+
+    private void matricularAlunoEmTurma(Aluno aluno, Turma turma) throws MatriculaException {
+        // Verificar se a turma tem vagas disponiveis
         if (turma.getCapacidadeMaxima() <= 0) {
             throw new TurmaCheiaException("Turma nao tem vagas disponiveis.");
         }
+
+        // Verificar conflitos de horario
+        verificarConflitoHorario(aluno, turma);
         
+        // Verificar carga horaria
         int cargaHorariaAtual = calcularCargaHorariaPlanejamento(aluno);
         if (cargaHorariaAtual + turma.getDisciplina().getCargaHoraria() > aluno.getHorasMaximas()) {
             throw new CargaHorariaExcedidaException("Carga horaria excedida. Atual: " + cargaHorariaAtual + 
@@ -107,18 +118,20 @@ public class SistemaAcademico {
                 ", Maximo: " + aluno.getHorasMaximas());
         }
         
+        // Verificar pre-requisitos
         verificarPreRequisitos(aluno, turma.getDisciplina());
+        
+        // Verificar co-requisitos
         verificarCoRequisitos(aluno, turma.getDisciplina());
         
+        // Verificar validadores complexos
         for (ValidadorPreRequisito validador : turma.getDisciplina().getValidadoresPreRequisito()) {
             if (!validador.validar(aluno, turma.getDisciplina())) {
                 throw new PreRequisitoNaoCumpridoException(validador.getMensagemErro());
             }
         }
         
-        verificarConflitoHorario(aluno, turma);
-        
-        aluno.adicionarTurmaPlanejamento(turma);
+        // Reservar vaga na turma para a simulacao
         turma.reservarVaga(aluno);
     }
    
@@ -211,5 +224,45 @@ public class SistemaAcademico {
         }
         
         disciplina.addCoRequisito(coRequisito);
+    }
+
+
+    public RelatorioSimulacao simularMatricula(Aluno aluno) {
+        RelatorioSimulacao relatorio = new RelatorioSimulacao(aluno);
+        List<Turma> turmasParaProcessar = new ArrayList<>(aluno.getPlanejamentoFuturo());
+        
+        // Criar um aluno temporario para simulacao sem afetar o original
+        Aluno alunoSimulacao = new Aluno(aluno.getNome(), aluno.getMatricula());
+        alunoSimulacao.setHorasMaximas(aluno.getHorasMaximas());
+        
+        // Copiar disciplinas cursadas
+        for (var entry : aluno.getDisciplinasCursadas().entrySet()) {
+            alunoSimulacao.adicionarDisciplinaCursada(entry.getKey(), entry.getValue());
+        }
+        
+        int cargaHorariaAcumulada = 0;
+        
+        for (Turma turma : turmasParaProcessar) {
+            try {
+                // Verificar se carga horaria seria excedida
+                if (cargaHorariaAcumulada + turma.getDisciplina().getCargaHoraria() > aluno.getHorasMaximas()) {
+                    relatorio.adicionarTurmaRejeitada(turma, "Carga horaria excedida - disciplina descartada automaticamente");
+                    continue;
+                }
+                
+                // Tentar matricular na simulacao
+                matricularAlunoEmTurma(alunoSimulacao, turma);
+                relatorio.adicionarTurmaAceita(turma, "Matricula realizada com sucesso");
+                cargaHorariaAcumulada += turma.getDisciplina().getCargaHoraria();
+                
+                // Adicionar ao planejamento do aluno de simulacao
+                alunoSimulacao.adicionarTurmaPlanejamento(turma);
+                
+            } catch (MatriculaException e) {
+                relatorio.adicionarTurmaRejeitada(turma, e.getMessage());
+            }
+        }
+        
+        return relatorio;
     }
 }
