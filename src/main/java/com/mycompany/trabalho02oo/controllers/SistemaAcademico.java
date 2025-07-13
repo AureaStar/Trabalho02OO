@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mycompany.trabalho02oo.exceptions.CargaHorariaExcedidaException;
+import com.mycompany.trabalho02oo.exceptions.CoRequisitoNaoAtendidoException;
 import com.mycompany.trabalho02oo.exceptions.ConflitoDeHorarioException;
 import com.mycompany.trabalho02oo.exceptions.MatriculaException;
 import com.mycompany.trabalho02oo.exceptions.PreRequisitoNaoCumpridoException;
@@ -82,7 +83,7 @@ public class SistemaAcademico {
         return null;
     }
 
-    public void matricularAlunoEmTurma (Aluno aluno, Turma turma) throws MatriculaException {
+    public void matricularAlunoEmTurma(Aluno aluno, Turma turma) throws MatriculaException {
         if (!alunos.contains(aluno)) {
             throw new IllegalArgumentException("Aluno nao encontrado no sistema.");
         }
@@ -92,7 +93,7 @@ public class SistemaAcademico {
         }
         
         if (aluno.getPlanejamentoFuturo().contains(turma)) {
-            throw new IllegalArgumentException("Aluno ja cadastrado na turma.");
+            throw new IllegalArgumentException("Aluno ja esta planejado para esta turma.");
         }
         
         if (turma.getCapacidadeMaxima() <= 0) {
@@ -106,12 +107,8 @@ public class SistemaAcademico {
                 ", Maximo: " + aluno.getHorasMaximas());
         }
         
-        for (Disciplina preRequisito : turma.getDisciplina().getPreRequisitos()) {
-            if (!aluno.cumpriuPreRequisito(preRequisito)) {
-                throw new PreRequisitoNaoCumpridoException("\n Pre-requisito nao cumprido: " + 
-                    preRequisito.getNome() + " para disciplina " + turma.getDisciplina().getNome());
-            }
-        }
+        verificarPreRequisitos(aluno, turma.getDisciplina());
+        verificarCoRequisitos(aluno, turma.getDisciplina());
         
         for (ValidadorPreRequisito validador : turma.getDisciplina().getValidadoresPreRequisito()) {
             if (!validador.validar(aluno, turma.getDisciplina())) {
@@ -155,6 +152,25 @@ public class SistemaAcademico {
         }
     }
 
+    public void verificarPreRequisitos(Aluno aluno, Disciplina disciplina) throws PreRequisitoNaoCumpridoException {
+        for (Disciplina preRequisito : disciplina.getPreRequisitos()) {
+            if (!aluno.cumpriuPreRequisito(preRequisito)) {
+                throw new PreRequisitoNaoCumpridoException("O aluno nao cumpriu o pre-requisito: " + 
+                    preRequisito.getNome() + " para a disciplina " + disciplina.getNome());
+            }
+        }
+    }
+
+    public void verificarCoRequisitos(Aluno aluno, Disciplina disciplina) throws CoRequisitoNaoAtendidoException {
+        for (Disciplina coRequisito : disciplina.getCoRequisitos()) {
+            if(aluno.getPlanejamentoFuturo().stream()
+                .noneMatch(turma -> turma.getDisciplina().equals(coRequisito))) {
+                throw new CoRequisitoNaoAtendidoException("O aluno precisa estar planejado para o co-requisito: " +
+                    coRequisito.getNome() + " para a disciplina " + disciplina.getNome());
+            }
+        }
+    }
+    
     public List<Aluno> getAlunos() { return alunos; }
 
     public List<Disciplina> getDisciplinas() { return disciplinas; }

@@ -32,7 +32,7 @@ public class PreRequisitoTest {
     public void testPreRequisitoNaoCumprido() {
         SistemaAcademico sistemaAcademico = new SistemaAcademico();
         Aluno aluno1 = sistemaAcademico.cadastrarAluno("Estudante", "202310444");
-        Disciplina disciplina1 = sistemaAcademico.cadastrarDisciplinaObrigatoria("MAT101", "Matematica I", 60);
+        sistemaAcademico.cadastrarDisciplinaObrigatoria("MAT101", "Matematica I", 60);
         Disciplina disciplina2 = sistemaAcademico.cadastrarDisciplinaObrigatoria("MAT102", "Matematica II", 60);
         sistemaAcademico.addPreRequisito("MAT102", "MAT101");
         Turma turma1 = sistemaAcademico.cadastrarTurma("MAT102", disciplina2, "Prof. Silva", 30, "Segunda-feira, 14h - 16h");

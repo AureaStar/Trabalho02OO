@@ -14,14 +14,16 @@ public class CoRequisitoTest {
     public void testCoRequisito() {
         SistemaAcademico sistemaAcademico = new SistemaAcademico();
         Aluno aluno1 = sistemaAcademico.cadastrarAluno("Estudante", "202310444");
-        Disciplina disciplina1 = sistemaAcademico.cadastrarDisciplinaObrigatoria("MAT101", "Matematica I", 60);
-        Disciplina disciplina2 = sistemaAcademico.cadastrarDisciplinaObrigatoria("MAT102", "Matematica II", 60);
-        sistemaAcademico.addCoRequisito("MAT102", "MAT101");
-        Turma turma1 = sistemaAcademico.cadastrarTurma("MAT101", disciplina1, "Prof. Silva", 30, "Segunda-feira, 14h - 16h");
-        Turma turma2 = sistemaAcademico.cadastrarTurma("MAT102", disciplina2, "Prof. Silva", 30, "Segunda-feira, 14h - 16h");
+        Disciplina disciplina1 = sistemaAcademico.cadastrarDisciplinaObrigatoria("DCC001", "Algoritmos I", 60);
+        Disciplina disciplina2 = sistemaAcademico.cadastrarDisciplinaObrigatoria("DCC002", "Algoritmos Pratica", 60);
+        sistemaAcademico.addCoRequisito("DCC002", "DCC001");
+        Turma turma1 = sistemaAcademico.cadastrarTurma("DCC001", disciplina1, "Prof. Silva", 30, "Segunda-feira, 14h - 16h");
+        Turma turma2 = sistemaAcademico.cadastrarTurma("DCC002", disciplina2, "Prof. Silva", 30, "Segunda-feira, 10h - 12h");
 
         try {
             sistemaAcademico.matricularAlunoEmTurma(aluno1, turma1);
+            sistemaAcademico.matricularAlunoEmTurma(aluno1, turma2);
+            org.junit.Assert.assertTrue("Matricula concluída com sucesso.", true);
         } catch (MatriculaException e) {
             e.printStackTrace();
             org.junit.Assert.fail("Matricula não deveria ter falhado: " + e.getMessage());
@@ -32,10 +34,10 @@ public class CoRequisitoTest {
     public void testCoRequisitoNaoAtendido() {
         SistemaAcademico sistemaAcademico = new SistemaAcademico();
         Aluno aluno1 = sistemaAcademico.cadastrarAluno("Estudante", "202310444");
-        Disciplina disciplina1 = sistemaAcademico.cadastrarDisciplinaObrigatoria("MAT101", "Matematica I", 60);
-        Disciplina disciplina2 = sistemaAcademico.cadastrarDisciplinaObrigatoria("MAT102", "Matematica II", 60);
-        sistemaAcademico.addCoRequisito("MAT102", "MAT101");
-        Turma turma1 = sistemaAcademico.cadastrarTurma("MAT102", disciplina2, "Prof. Silva", 30, "Segunda-feira, 14h - 16h");
+        sistemaAcademico.cadastrarDisciplinaObrigatoria("DCC001", "Algoritmos I", 60);
+        Disciplina disciplina2 = sistemaAcademico.cadastrarDisciplinaObrigatoria("DCC002", "Algoritmos Pratica", 60);
+        sistemaAcademico.addCoRequisito("DCC002", "DCC001");
+        Turma turma1 = sistemaAcademico.cadastrarTurma("DCC002", disciplina2, "Prof. Silva", 30, "Segunda-feira, 14h - 16h");
 
         try {
             sistemaAcademico.matricularAlunoEmTurma(aluno1, turma1);
