@@ -14,7 +14,6 @@ public class App {
 
         Aluno aluno1 = sistemaAcademico.getAlunos().get(0);
         
-        // Registrar as turmas que o aluno pretende cursar
         for(Turma turma : sistemaAcademico.getTurmas()) {
             try {
                 sistemaAcademico.registrarTurmasEmAluno(aluno1, turma);
@@ -23,7 +22,6 @@ public class App {
             }
         }
 
-        // Simular a matricula
         RelatorioSimulacao relatorio = sistemaAcademico.simularMatricula(aluno1);
         
         System.out.println(relatorio.gerarRelatorioCompleto());

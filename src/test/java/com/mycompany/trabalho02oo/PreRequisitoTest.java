@@ -21,13 +21,10 @@ public class PreRequisitoTest {
         aluno1.adicionarDisciplinaCursada(disciplina1, 62);
         Turma turma1 = sistemaAcademico.cadastrarTurma("MAT102A", disciplina2, "Prof. Silva", 30, "Segunda-feira, 14h - 16h");
 
-        // Registrar a turma que o aluno pretende cursar
         sistemaAcademico.registrarTurmasEmAluno(aluno1, turma1);
         
-        // Simular a matricula
         RelatorioSimulacao relatorio = sistemaAcademico.simularMatricula(aluno1);
         
-        // Verificar se a matricula foi aceita (pre-requisito cumprido)
         assertEquals(1, relatorio.getQuantidadeTurmasAceitas());
         assertEquals(0, relatorio.getQuantidadeTurmasRejeitadas());
     }
@@ -41,13 +38,10 @@ public class PreRequisitoTest {
         sistemaAcademico.addPreRequisito("MAT102", "MAT101");
         Turma turma1 = sistemaAcademico.cadastrarTurma("MAT102A", disciplina2, "Prof. Silva", 30, "Segunda-feira, 14h - 16h");
 
-        // Registrar a turma que o aluno pretende cursar
         sistemaAcademico.registrarTurmasEmAluno(aluno1, turma1);
         
-        // Simular a matricula
         RelatorioSimulacao relatorio = sistemaAcademico.simularMatricula(aluno1);
         
-        // Verificar se a matricula foi rejeitada (pre-requisito nao cumprido)
         assertEquals(0, relatorio.getQuantidadeTurmasAceitas());
         assertEquals(1, relatorio.getQuantidadeTurmasRejeitadas());
         assertTrue(relatorio.getTurmasRejeitadas().get(0).getMotivo().contains("pre-requisito"));

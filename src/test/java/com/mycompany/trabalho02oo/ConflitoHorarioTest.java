@@ -20,14 +20,11 @@ public class ConflitoHorarioTest {
         Turma turma1 = sistemaAcademico.cadastrarTurma("MAT101A", disciplina1, "Prof. Silva", 30, "Segunda-feira, 14h - 16h");
         Turma turma2 = sistemaAcademico.cadastrarTurma("MAT102A", disciplina2, "Prof. Souza", 30, "Segunda-feira, 14h - 16h");
 
-        // Registrar ambas as turmas com conflito de horario
         sistemaAcademico.registrarTurmasEmAluno(aluno1, turma1);
         sistemaAcademico.registrarTurmasEmAluno(aluno1, turma2);
         
-        // Simular a matricula
         RelatorioSimulacao relatorio = sistemaAcademico.simularMatricula(aluno1);
         
-        // Verificar se uma foi aceita e outra rejeitada por conflito
         assertEquals(1, relatorio.getQuantidadeTurmasAceitas());
         assertEquals(1, relatorio.getQuantidadeTurmasRejeitadas());
         assertTrue(relatorio.getTurmasRejeitadas().get(0).getMotivo().contains("Conflito"));

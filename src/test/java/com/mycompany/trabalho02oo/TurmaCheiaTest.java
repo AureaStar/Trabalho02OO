@@ -18,13 +18,10 @@ public class TurmaCheiaTest {
         Disciplina disciplina1 = sistemaAcademico.cadastrarDisciplinaObrigatoria("MAT101", "Matematica I", 60);
         Turma turma1 = sistemaAcademico.cadastrarTurma("MAT101A", disciplina1, "Prof. Silva", 0, "Segunda-feira, 14h - 16h");
 
-        // Registrar a turma que o aluno pretende cursar
         sistemaAcademico.registrarTurmasEmAluno(aluno1, turma1);
         
-        // Simular a matricula
         RelatorioSimulacao relatorio = sistemaAcademico.simularMatricula(aluno1);
         
-        // Verificar se a matricula foi rejeitada por falta de vagas
         assertEquals(0, relatorio.getQuantidadeTurmasAceitas());
         assertEquals(1, relatorio.getQuantidadeTurmasRejeitadas());
         assertTrue(relatorio.getTurmasRejeitadas().get(0).getMotivo().contains("vagas"));

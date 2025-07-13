@@ -30,7 +30,6 @@ public class DataBase {
     }
 
     public void inicializaDisciplinas() {
-        // Disciplinas basicas
         sistemaAcademico.cadastrarDisciplinaObrigatoria("MAT101", "Matematica I", 60);
         sistemaAcademico.cadastrarDisciplinaObrigatoria("MAT102", "Matematica II", 60);
         sistemaAcademico.addPreRequisito("MAT102", "MAT101");
@@ -44,7 +43,6 @@ public class DataBase {
         sistemaAcademico.cadastrarDisciplinaOptativa("MUS301", "Musica", 60);
         sistemaAcademico.cadastrarDisciplinaOptativa("EDU301", "Educacao Fisica", 60);
         
-        // Disciplinas com pre-requisitos complexos
         sistemaAcademico.cadastrarDisciplinaObrigatoria("MAT201", "Calculo I", 80);
         sistemaAcademico.addPreRequisito("MAT201", "MAT101");
         sistemaAcademico.addPreRequisito("MAT201", "MAT102");
@@ -97,23 +95,16 @@ public class DataBase {
         sistemaAcademico.addPreRequisito("WEB801", "BD501");
         sistemaAcademico.addPreRequisito("WEB801", "LAB501");
         
-        // Adicionar mais co-requisitos para testes
-        // Fisica II deve ser cursada junto com Matematica II (co-requisito)
         sistemaAcademico.addCoRequisito("FIS301", "MAT202");
         
-        // Banco de Dados deve ser cursado junto com Laboratorio (co-requisito adicional)
         sistemaAcademico.addCoRequisito("BD501", "LAB501");
         
-        // Inteligencia Artificial deve ser cursada junto com Banco de Dados
         sistemaAcademico.addCoRequisito("IA601", "BD501");
         
-        // Seguranca deve ser cursada junto com Redes
         sistemaAcademico.addCoRequisito("SEC701", "RDC601");
         
-        // Desenvolvimento Web deve ser cursado junto com Desenvolvimento Mobile (co-requisitos mutuos)
         sistemaAcademico.addCoRequisito("WEB801", "MOB801");
         
-        // Adicionar disciplinas especificas para testar co-requisitos complexos
         sistemaAcademico.cadastrarDisciplinaEletiva("TEST901", "Teste de Software", 80);
         sistemaAcademico.addPreRequisito("TEST901", "ENG501");
         sistemaAcademico.addCoRequisito("TEST901", "LAB501");
@@ -128,9 +119,7 @@ public class DataBase {
     }
     
     private void adicionarValidadoresComplexos() {
-        // Adicionar validadores AND e OR para disciplinas especificas
         
-        // Disciplina que requer (Matematica I OU Matematica II) E (Fisica I OU Biologia I)
         sistemaAcademico.cadastrarDisciplinaEletiva("CMP901", "Computacao Cientifica", 120);
         
         ValidadorSimples validadorMat1 = new ValidadorSimples(sistemaAcademico.buscarDisciplinaPorCodigo("MAT101"));
@@ -144,7 +133,6 @@ public class DataBase {
         ValidadorLogicoAND validadorCompleto = new ValidadorLogicoAND(validadorMatOR, validadorCienciaOR);
         sistemaAcademico.buscarDisciplinaPorCodigo("CMP901").addValidadorPreRequisito(validadorCompleto);
         
-        // Disciplina que requer (Calculo I E Calculo II) OU (Estatistica E Algebra Linear)
         sistemaAcademico.cadastrarDisciplinaEletiva("OPT901", "Otimizacao", 80);
         
         ValidadorSimples validadorCalc1 = new ValidadorSimples(sistemaAcademico.buscarDisciplinaPorCodigo("MAT201"));
@@ -158,7 +146,6 @@ public class DataBase {
         ValidadorLogicoOR validadorFinalOR = new ValidadorLogicoOR(Arrays.asList(validadorCalculoAND, validadorEstatisticaAND));
         sistemaAcademico.buscarDisciplinaPorCodigo("OPT901").addValidadorPreRequisito(validadorFinalOR);
         
-        // Disciplina com co-requisito complexo: deve cursar junto com Laboratorio
         sistemaAcademico.cadastrarDisciplinaObrigatoria("TEO901", "Teoria da Computacao", 100);
         sistemaAcademico.addCoRequisito("TEO901", "LAB501");
         sistemaAcademico.addPreRequisito("TEO901", "ALG401");

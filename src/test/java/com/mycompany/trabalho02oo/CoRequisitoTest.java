@@ -21,14 +21,11 @@ public class CoRequisitoTest {
         Turma turma1 = sistemaAcademico.cadastrarTurma("DCC001A", disciplina1, "Prof. Silva", 30, "Segunda-feira, 14h - 16h");
         Turma turma2 = sistemaAcademico.cadastrarTurma("DCC002A", disciplina2, "Prof. Silva", 30, "Segunda-feira, 10h - 12h");
 
-        // Registrar ambas as turmas (co-requisito atendido)
         sistemaAcademico.registrarTurmasEmAluno(aluno1, turma1);
         sistemaAcademico.registrarTurmasEmAluno(aluno1, turma2);
         
-        // Simular a matricula
         RelatorioSimulacao relatorio = sistemaAcademico.simularMatricula(aluno1);
         
-        // Verificar se ambas foram aceitas
         assertEquals(2, relatorio.getQuantidadeTurmasAceitas());
         assertEquals(0, relatorio.getQuantidadeTurmasRejeitadas());
     }
@@ -42,13 +39,10 @@ public class CoRequisitoTest {
         sistemaAcademico.addCoRequisito("DCC002", "DCC001");
         Turma turma1 = sistemaAcademico.cadastrarTurma("DCC002A", disciplina2, "Prof. Silva", 30, "Segunda-feira, 14h - 16h");
 
-        // Registrar apenas uma turma (co-requisito nao atendido)
         sistemaAcademico.registrarTurmasEmAluno(aluno1, turma1);
         
-        // Simular a matricula
         RelatorioSimulacao relatorio = sistemaAcademico.simularMatricula(aluno1);
         
-        // Verificar se foi rejeitada por co-requisito
         assertEquals(0, relatorio.getQuantidadeTurmasAceitas());
         assertEquals(1, relatorio.getQuantidadeTurmasRejeitadas());
         assertTrue(relatorio.getTurmasRejeitadas().get(0).getMotivo().contains("co-requisito"));

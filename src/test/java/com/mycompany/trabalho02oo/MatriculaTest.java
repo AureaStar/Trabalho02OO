@@ -19,13 +19,10 @@ public class MatriculaTest {
         aluno1.adicionarDisciplinaCursada(disciplina1, 62);
         Turma turma1 = sistemaAcademico.cadastrarTurma("MAT102A", disciplina1, "Prof. Silva", 30, "Segunda-feira, 14h - 16h");
 
-        // Registrar a turma que o aluno pretende cursar
         sistemaAcademico.registrarTurmasEmAluno(aluno1, turma1);
         
-        // Simular a matricula
         RelatorioSimulacao relatorio = sistemaAcademico.simularMatricula(aluno1);
         
-        // Verificar se a matricula foi bem-sucedida
         assertEquals(1, relatorio.getQuantidadeTurmasAceitas());
         assertEquals(0, relatorio.getQuantidadeTurmasRejeitadas());
         assertTrue(relatorio.getTurmasAceitas().get(0).getMotivo().contains("sucesso"));
