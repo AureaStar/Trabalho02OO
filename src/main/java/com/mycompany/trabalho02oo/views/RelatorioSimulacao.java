@@ -3,6 +3,9 @@ package com.mycompany.trabalho02oo.views;
 import com.mycompany.trabalho02oo.models.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class RelatorioSimulacao {
     private Aluno aluno;
@@ -146,6 +149,78 @@ public class RelatorioSimulacao {
     
     public int getCargaHorariaAceita() {
         return cargaHorariaAceita;
+    }
+    
+    public void exportarCSV(String nomeArquivo) throws IOException {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(nomeArquivo))) {
+            writer.println("Tipo,Codigo,Nome,CargaHoraria,Horario,Motivo");
+            
+            for (TurmaAceita aceita : turmasAceitas) {
+                writer.printf("Aceita,%s,%s,%d,%s,%s%n",
+                    aceita.getTurma().getDisciplina().getCodigo(),
+                    aceita.getTurma().getDisciplina().getNome(),
+                    aceita.getTurma().getDisciplina().getCargaHoraria(),
+                    aceita.getTurma().getHorario(),
+                    aceita.getMotivo());
+            }
+            
+            for (TurmaRejeitada rejeitada : turmasRejeitadas) {
+                writer.printf("Rejeitada,%s,%s,%d,%s,%s%n",
+                    rejeitada.getTurma().getDisciplina().getCodigo(),
+                    rejeitada.getTurma().getDisciplina().getNome(),
+                    rejeitada.getTurma().getDisciplina().getCargaHoraria(),
+                    rejeitada.getTurma().getHorario(),
+                    rejeitada.getMotivo());
+            }
+        }
+    }
+    
+    public void exportarJSON(String nomeArquivo) throws IOException {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(nomeArquivo))) {
+            writer.println("{");
+            writer.println("  \"relatorio_simulacao\": {");
+            writer.println("    \"aluno\": \"" + aluno.getNome() + "\",");
+            writer.println("    \"turmas_aceitas\": [");
+            
+            for (int i = 0; i < turmasAceitas.size(); i++) {
+                TurmaAceita aceita = turmasAceitas.get(i);
+                writer.println("      {");
+                writer.println("        \"codigo\": \"" + aceita.getTurma().getDisciplina().getCodigo() + "\",");
+                writer.println("        \"nome\": \"" + aceita.getTurma().getDisciplina().getNome() + "\",");
+                writer.println("        \"carga_horaria\": " + aceita.getTurma().getDisciplina().getCargaHoraria() + ",");
+                writer.println("        \"horario\": \"" + aceita.getTurma().getHorario() + "\",");
+                writer.println("        \"motivo\": \"" + aceita.getMotivo() + "\"");
+                writer.print("      }");
+                if (i < turmasAceitas.size() - 1) {
+                    writer.println(",");
+                } else {
+                    writer.println();
+                }
+            }
+            
+            writer.println("    ],");
+            writer.println("    \"turmas_rejeitadas\": [");
+            
+            for (int i = 0; i < turmasRejeitadas.size(); i++) {
+                TurmaRejeitada rejeitada = turmasRejeitadas.get(i);
+                writer.println("      {");
+                writer.println("        \"codigo\": \"" + rejeitada.getTurma().getDisciplina().getCodigo() + "\",");
+                writer.println("        \"nome\": \"" + rejeitada.getTurma().getDisciplina().getNome() + "\",");
+                writer.println("        \"carga_horaria\": " + rejeitada.getTurma().getDisciplina().getCargaHoraria() + ",");
+                writer.println("        \"horario\": \"" + rejeitada.getTurma().getHorario() + "\",");
+                writer.println("        \"motivo\": \"" + rejeitada.getMotivo() + "\"");
+                writer.print("      }");
+                if (i < turmasRejeitadas.size() - 1) {
+                    writer.println(",");
+                } else {
+                    writer.println();
+                }
+            }
+            
+            writer.println("    ]");
+            writer.println("  }");
+            writer.println("}");
+        }
     }
     
     // Classes internas para representar turmas aceitas e rejeitadas

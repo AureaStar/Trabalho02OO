@@ -25,6 +25,16 @@ public class App {
         RelatorioSimulacao relatorio = sistemaAcademico.simularMatricula(aluno1);
         
         System.out.println(relatorio.gerarRelatorioCompleto());
+        
+        try {
+            relatorio.exportarCSV("relatorio_simulacao.csv");
+            System.out.println("Relatorio exportado para CSV: relatorio_simulacao.csv");
+            
+            relatorio.exportarJSON("relatorio_simulacao.json");
+            System.out.println("Relatorio exportado para JSON: relatorio_simulacao.json");
+        } catch (Exception e) {
+            System.err.println("Erro ao exportar relatorio: " + e.getMessage());
+        }
 
         System.out.println("Aluno: " + aluno1.getNome() + " (" + aluno1.getMatricula() + ")");
         System.out.println("Disciplinas Planejadas:");
