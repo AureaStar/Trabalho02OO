@@ -15,7 +15,7 @@ public class Aluno {
     public Aluno(String nome, String matricula) {
         this.nome = nome;
         this.matricula = matricula;
-        this.horasMaximas = 3600;
+        this.horasMaximas = 360;
         this.disciplinasCursadas = new HashMap<>();
         this.planejamentoFuturo = new ArrayList<>();
     }

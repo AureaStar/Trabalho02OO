@@ -2,6 +2,7 @@ package com.mycompany.trabalho02oo.models;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.mycompany.trabalho02oo.validators.ValidadorPreRequisito;
 
 public abstract class Disciplina {

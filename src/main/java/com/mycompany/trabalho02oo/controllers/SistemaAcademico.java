@@ -185,4 +185,15 @@ public class SistemaAcademico {
         
         disciplina.addPreRequisito(preRequisito);
     }
+
+    public void addCoRequisito(String codigoDisciplina, String codigoCoRequisito) {
+        Disciplina disciplina = buscarDisciplinaPorCodigo(codigoDisciplina);
+        Disciplina coRequisito = buscarDisciplinaPorCodigo(codigoCoRequisito);
+        
+        if (disciplina == null || coRequisito == null) {
+            throw new IllegalArgumentException("Disciplina ou co-requisito nao encontrado.");
+        }
+        
+        disciplina.addCoRequisito(coRequisito);
+    }
 }
