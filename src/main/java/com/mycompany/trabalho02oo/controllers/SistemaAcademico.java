@@ -116,7 +116,6 @@ public class SistemaAcademico {
         
         verificarPreRequisitos(aluno, turma.getDisciplina());
         
-        // Verificar co-requisitos
         verificarCoRequisitos(aluno, turma.getDisciplina());
         
         for (ValidadorPreRequisito validador : turma.getDisciplina().getValidadoresPreRequisito()) {

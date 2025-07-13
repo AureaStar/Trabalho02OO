@@ -1,0 +1,31 @@
+Tipo,Codigo,Nome,CargaHoraria,Horario,Motivo
+Aceita,QUI301,Quimica I,60,Segunda-feira, 8h - 10h,Matricula realizada com sucesso
+Aceita,ART301,Artes Visuais,60,Segunda-feira, 10h - 12h,Matricula realizada com sucesso
+Aceita,MUS301,Musica,60,Segunda-feira, 14h - 16h,Matricula realizada com sucesso
+Aceita,HIS101,Historia I,60,Sexta-feira, 16h - 18h,Matricula realizada com sucesso
+Aceita,EDU301,Educacao Fisica,60,Segunda-feira, 16h - 18h,Matricula realizada com sucesso
+Aceita,MAT101,Matematica I,60,Sexta-feira, 8h - 10h,Matricula realizada com sucesso
+Rejeitada,RDC601,Redes de Computadores,80,Terca-feira, 8h - 10h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,MAT102,Matematica II,60,Sexta-feira, 10h - 12h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,POR101,Portugues I,60,Segunda-feira, 14h - 16h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,WEB801,Desenvolvimento Web Avancado,100,Terca-feira, 10h - 12h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,PROJ901,Projeto Final,120,Terca-feira, 14h - 16h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,FIS201,Fisica I,60,Terca-feira, 16h - 18h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,BIO201,Biologia I,60,Terca-feira, 18h - 20h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,GEO201,Geografia I,60,Quarta-feira, 8h - 10h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,EST401,Estatistica,60,Quarta-feira, 10h - 12h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,ALG401,Algebra Linear,60,Quarta-feira, 14h - 16h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,BD501,Banco de Dados,80,Quarta-feira, 16h - 18h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,IA601,Inteligencia Artificial,100,Quarta-feira, 18h - 20h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,SEC701,Seguranca da Informacao,60,Quinta-feira, 8h - 10h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,MOB801,Desenvolvimento Mobile,80,Quinta-feira, 10h - 12h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,CMP901,Computacao Cientifica,120,Quinta-feira, 14h - 16h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,OPT901,Otimizacao,80,Quinta-feira, 16h - 18h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,TEST901,Teste de Software,80,Quinta-feira, 18h - 20h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,MAT201,Calculo I,80,Sexta-feira, 18h - 20h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,MAT202,Calculo II,80,Segunda-feira, 18h - 20h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,FIS301,Fisica II,80,Segunda-feira, 12h - 14h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,ENG501,Engenharia de Software,100,Terca-feira, 12h - 14h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,LAB501,Laboratorio de Programacao,60,Quarta-feira, 12h - 14h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,TCC801,Trabalho de Conclusao de Curso,120,Quinta-feira, 12h - 14h,Carga horaria excedida - disciplina descartada automaticamente
+Rejeitada,TEO901,Teoria da Computacao,100,Sexta-feira, 12h - 14h,Carga horaria excedida - disciplina descartada automaticamente

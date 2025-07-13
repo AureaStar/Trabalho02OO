@@ -130,7 +130,6 @@ public class RelatorioSimulacao {
                 .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
     }
     
-    // Getters
     public Aluno getAluno() {
         return aluno;
     }
@@ -222,8 +221,7 @@ public class RelatorioSimulacao {
             writer.println("}");
         }
     }
-    
-    // Classes internas para representar turmas aceitas e rejeitadas
+
     public static class TurmaAceita {
         private Turma turma;
         private String motivo;

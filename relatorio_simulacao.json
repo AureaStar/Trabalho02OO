@@ -1,0 +1,219 @@
+{
+  "relatorio_simulacao": {
+    "aluno": "Joao",
+    "turmas_aceitas": [
+      {
+        "codigo": "QUI301",
+        "nome": "Quimica I",
+        "carga_horaria": 60,
+        "horario": "Segunda-feira, 8h - 10h",
+        "motivo": "Matricula realizada com sucesso"
+      },
+      {
+        "codigo": "ART301",
+        "nome": "Artes Visuais",
+        "carga_horaria": 60,
+        "horario": "Segunda-feira, 10h - 12h",
+        "motivo": "Matricula realizada com sucesso"
+      },
+      {
+        "codigo": "MUS301",
+        "nome": "Musica",
+        "carga_horaria": 60,
+        "horario": "Segunda-feira, 14h - 16h",
+        "motivo": "Matricula realizada com sucesso"
+      },
+      {
+        "codigo": "HIS101",
+        "nome": "Historia I",
+        "carga_horaria": 60,
+        "horario": "Sexta-feira, 16h - 18h",
+        "motivo": "Matricula realizada com sucesso"
+      },
+      {
+        "codigo": "EDU301",
+        "nome": "Educacao Fisica",
+        "carga_horaria": 60,
+        "horario": "Segunda-feira, 16h - 18h",
+        "motivo": "Matricula realizada com sucesso"
+      },
+      {
+        "codigo": "MAT101",
+        "nome": "Matematica I",
+        "carga_horaria": 60,
+        "horario": "Sexta-feira, 8h - 10h",
+        "motivo": "Matricula realizada com sucesso"
+      }
+    ],
+    "turmas_rejeitadas": [
+      {
+        "codigo": "RDC601",
+        "nome": "Redes de Computadores",
+        "carga_horaria": 80,
+        "horario": "Terca-feira, 8h - 10h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "MAT102",
+        "nome": "Matematica II",
+        "carga_horaria": 60,
+        "horario": "Sexta-feira, 10h - 12h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "POR101",
+        "nome": "Portugues I",
+        "carga_horaria": 60,
+        "horario": "Segunda-feira, 14h - 16h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "WEB801",
+        "nome": "Desenvolvimento Web Avancado",
+        "carga_horaria": 100,
+        "horario": "Terca-feira, 10h - 12h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "PROJ901",
+        "nome": "Projeto Final",
+        "carga_horaria": 120,
+        "horario": "Terca-feira, 14h - 16h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "FIS201",
+        "nome": "Fisica I",
+        "carga_horaria": 60,
+        "horario": "Terca-feira, 16h - 18h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "BIO201",
+        "nome": "Biologia I",
+        "carga_horaria": 60,
+        "horario": "Terca-feira, 18h - 20h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "GEO201",
+        "nome": "Geografia I",
+        "carga_horaria": 60,
+        "horario": "Quarta-feira, 8h - 10h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "EST401",
+        "nome": "Estatistica",
+        "carga_horaria": 60,
+        "horario": "Quarta-feira, 10h - 12h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "ALG401",
+        "nome": "Algebra Linear",
+        "carga_horaria": 60,
+        "horario": "Quarta-feira, 14h - 16h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "BD501",
+        "nome": "Banco de Dados",
+        "carga_horaria": 80,
+        "horario": "Quarta-feira, 16h - 18h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "IA601",
+        "nome": "Inteligencia Artificial",
+        "carga_horaria": 100,
+        "horario": "Quarta-feira, 18h - 20h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "SEC701",
+        "nome": "Seguranca da Informacao",
+        "carga_horaria": 60,
+        "horario": "Quinta-feira, 8h - 10h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "MOB801",
+        "nome": "Desenvolvimento Mobile",
+        "carga_horaria": 80,
+        "horario": "Quinta-feira, 10h - 12h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "CMP901",
+        "nome": "Computacao Cientifica",
+        "carga_horaria": 120,
+        "horario": "Quinta-feira, 14h - 16h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "OPT901",
+        "nome": "Otimizacao",
+        "carga_horaria": 80,
+        "horario": "Quinta-feira, 16h - 18h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "TEST901",
+        "nome": "Teste de Software",
+        "carga_horaria": 80,
+        "horario": "Quinta-feira, 18h - 20h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "MAT201",
+        "nome": "Calculo I",
+        "carga_horaria": 80,
+        "horario": "Sexta-feira, 18h - 20h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "MAT202",
+        "nome": "Calculo II",
+        "carga_horaria": 80,
+        "horario": "Segunda-feira, 18h - 20h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "FIS301",
+        "nome": "Fisica II",
+        "carga_horaria": 80,
+        "horario": "Segunda-feira, 12h - 14h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "ENG501",
+        "nome": "Engenharia de Software",
+        "carga_horaria": 100,
+        "horario": "Terca-feira, 12h - 14h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "LAB501",
+        "nome": "Laboratorio de Programacao",
+        "carga_horaria": 60,
+        "horario": "Quarta-feira, 12h - 14h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "TCC801",
+        "nome": "Trabalho de Conclusao de Curso",
+        "carga_horaria": 120,
+        "horario": "Quinta-feira, 12h - 14h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      },
+      {
+        "codigo": "TEO901",
+        "nome": "Teoria da Computacao",
+        "carga_horaria": 100,
+        "horario": "Sexta-feira, 12h - 14h",
+        "motivo": "Carga horaria excedida - disciplina descartada automaticamente"
+      }
+    ]
+  }
+}
